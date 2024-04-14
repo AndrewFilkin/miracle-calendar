@@ -24,7 +24,7 @@ class RegisterUserService
         ]);
 
         if ($user->wasRecentlyCreated) {
-            $this->answer = response()->json('success', 201);
+            $this->answer = response()->json('register success', 201);
         } else {
             $this->answer = response()->json('something wrong', 409);
         }

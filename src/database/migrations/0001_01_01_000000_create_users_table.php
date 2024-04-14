@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('vk_link')->nullable();
             $table->string('password');
             $table->string('role')->nullable();
-            $table->boolean('confirm_user')->default(false);
+            $table->boolean('confirm')->default(false);
             $table->timestamps();
         });
 
