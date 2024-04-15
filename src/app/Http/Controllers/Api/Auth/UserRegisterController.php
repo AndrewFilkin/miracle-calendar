@@ -22,17 +22,28 @@ class UserRegisterController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
     }
 
+    public function logout()
+    {
+        try {
+            auth()->logout();
+            return response()->json(['message' => 'Successfully logged out']);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
+        }
+
+    }
+
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
      *
      * @return \Illuminate\Http\JsonResponse
      */

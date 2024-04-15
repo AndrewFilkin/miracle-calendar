@@ -14,6 +14,10 @@ use App\Http\Controllers\Api\Admin\Auth\ConfirmUserRegisterController;
  */
 Route::post('register', [UserRegisterController::class, 'register'])->name('auth.register');
 Route::post('login', [UserRegisterController::class, 'login'])->name('auth.login');
+Route::post('logout', [UserRegisterController::class, 'logout'])->name('auth.logout');
+
+
+
 
 // Admin confirm user who registered
 Route::patch('admin/confirm', [ConfirmUserRegisterController::class, 'confirmUserRegister']);
