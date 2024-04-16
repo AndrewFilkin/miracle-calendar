@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\UserRegisterController;
 use App\Http\Controllers\Api\Admin\Auth\ConfirmUserRegisterController;
+use App\Http\Middleware\Api\Admin\AdminIsValidMiddleware;
 
 //Route::get('/user', function (Request $request) {
 //    return $request->user();
@@ -17,8 +18,9 @@ Route::post('login', [UserRegisterController::class, 'login'])->name('auth.login
 Route::post('logout', [UserRegisterController::class, 'logout'])->name('auth.logout');
 
 
+Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(function () {
+    // Admin confirm user who registered
+    Route::patch('confirm', [ConfirmUserRegisterController::class, 'confirmUserRegister']);
+});
 
-
-// Admin confirm user who registered
-Route::patch('admin/confirm', [ConfirmUserRegisterController::class, 'confirmUserRegister']);
 
