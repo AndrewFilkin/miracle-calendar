@@ -11,13 +11,17 @@ class AdminIsValidMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
 
-        if (auth()->user()->name == "admin" && auth()->user()->email == "admin@example.com") {
-            return $next($request);
+        if (auth()->user()) {
+            if (auth()->user()->name == "admin" && auth()->user()->email == "admin@example.com") {
+                return $next($request);
+            } else {
+                return response()->json("Access closed", 403);
+            }
         } else {
             return response()->json("Access closed", 403);
         }
