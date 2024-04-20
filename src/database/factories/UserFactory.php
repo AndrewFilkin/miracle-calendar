@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'role' => null,
             'vk_link' => null,
+            'avatar' => "admin.jpg",
             'confirm' => false,
         ];
     }

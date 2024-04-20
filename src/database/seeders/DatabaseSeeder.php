@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('wMZn5wfqPF67qrQ'),
             'role' => 'admin',
             'confirm' => true,
+            'avatar' => "admin.jpg",
         ]);
     }
 }

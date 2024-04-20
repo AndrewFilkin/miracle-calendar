@@ -9,7 +9,7 @@ use App\Http\Requests\Api\Auth\LoginRequest;
 
 class UserRegisterController extends Controller
 {
-    public function register(RegisterRequest $request, RegisterUserService $registerUser): \Illuminate\Http\JsonResponse
+    public function register(RegisterRequest $request, RegisterUserService $registerUser)
     {
         // register user
         $registerUser->registerUser($request);

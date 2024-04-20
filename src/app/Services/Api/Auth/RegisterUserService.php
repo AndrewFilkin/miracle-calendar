@@ -5,27 +5,40 @@ namespace App\Services\Api\Auth;
 
 
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Api\Auth\RegisterRequest;
+use Illuminate\Support\Facades\DB;
 
 class RegisterUserService
 {
 
-    public JsonResponse $answer;
+    public $answer;
 
-    public function registerUser(RegisterRequest $request): void
+    public function registerUser(RegisterRequest $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'vk_link' => $request->vk_link,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->vk_link = $request->vk_link;
+        $user->password = bcrypt($request->password);
+
+        DB::beginTransaction();
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('public/avatars', $avatarName);
+            $user->avatar = $avatarName;
+            $user->save();
+            DB::commit();
+        } else {
+            $user->save();
+            DB::commit();
+        }
 
         if ($user->wasRecentlyCreated) {
             $this->answer = response()->json('register success', 201);
         } else {
+            DB::rollBack();
             $this->answer = response()->json('something wrong', 409);
         }
     }
