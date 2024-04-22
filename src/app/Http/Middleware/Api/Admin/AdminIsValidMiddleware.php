@@ -17,7 +17,7 @@ class AdminIsValidMiddleware
     {
 
         if (auth()->user()) {
-            if (auth()->user()->name == "admin" && auth()->user()->email == "admin@example.com") {
+            if (auth()->user()->role == "admin") {
                 return $next($request);
             } else {
                 return response()->json("Access closed", 403);

@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'role' => null,
             'vk_link' => null,
             'avatar' => "admin.jpg",
-            'confirm' => false,
+            'is_approved' => false,
         ];
     }
 

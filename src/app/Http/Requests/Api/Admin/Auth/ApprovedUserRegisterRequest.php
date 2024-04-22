@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Admin\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ConfirmUserRegisterRequest extends FormRequest
+class ApprovedUserRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -36,10 +36,10 @@ class RegisterUserService
         }
 
         if ($user->wasRecentlyCreated) {
-            $this->answer = response()->json('register success', 201);
+            $this->answer = response()->json(['message' => 'register success'], 201);
         } else {
             DB::rollBack();
-            $this->answer = response()->json('something wrong', 409);
+            $this->answer = response()->json(['message' => 'something wrong'], 409);
         }
     }
 }
