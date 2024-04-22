@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\RegisterRequest;
+use App\Http\Requests\Api\Auth\UpdateUserRequest;
 use App\Services\Api\Auth\RegisterUserService;
 use App\Http\Requests\Api\Auth\LoginRequest;
+use App\Services\Api\Auth\UpdateUserService;
 
 class UserRegisterController extends Controller
 {
@@ -16,6 +18,15 @@ class UserRegisterController extends Controller
 
         // return answer and status code (json)
         return $registerUser->answer;
+    }
+
+    public function update(UpdateUserRequest $request, UpdateUserService $updateUser)
+    {
+        // update
+        $updateUser->updateUser($request);
+
+        // return answer and status code (json)
+        return $updateUser->answer;
     }
 
     public function login(LoginRequest $request): \Illuminate\Http\JsonResponse
