@@ -22,9 +22,9 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|max:255',
+            'name' => 'string|max:150',
             'email' => 'email|min:8|max:100|unique:users,email',
-            'vk_link' => 'nullable|url',
+            'vk_link' => 'nullable|url|max:200',
             'avatar' => 'image|mimes:jpeg,png,jpg|max:2048|dimensions:width=460,height=460',
         ];
     }

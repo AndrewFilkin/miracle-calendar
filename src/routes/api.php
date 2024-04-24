@@ -17,7 +17,7 @@ Route::post('update', [UserRegisterController::class, 'update'])->name('auth.upd
 
 Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(function () {
     // Admin confirm user who registered
-    Route::patch('confirm', [ApprovedUserRegisterController::class, 'approvedUserRegister']);
+    Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister']);
 });
 
 
