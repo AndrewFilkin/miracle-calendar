@@ -15,6 +15,7 @@ class Task extends Model
         'start_date',
         'end_date',
         'file',
+        'is_completed',
     ];
 
     public function users()

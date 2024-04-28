@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('start_date')->useCurrent();
             $table->timestamp('end_date')->nullable();
             $table->string('file')->nullable();
+            $table->boolean('is_completed')->nullable();
             $table->timestamps();
         });
     }
