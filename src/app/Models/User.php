@@ -35,18 +35,6 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-//    protected function casts(): array
-//    {
-//        return [
-//           'role' => 'admin'
-//        ];
-//    }
-
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -56,4 +44,15 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }

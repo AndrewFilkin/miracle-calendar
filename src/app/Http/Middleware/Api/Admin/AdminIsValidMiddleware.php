@@ -20,10 +20,10 @@ class AdminIsValidMiddleware
             if (auth()->user()->role == "admin") {
                 return $next($request);
             } else {
-                return response()->json("Access closed", 403);
+                return response()->json(['message' => 'Access closed'], 403);
             }
         } else {
-            return response()->json("Access closed", 403);
+            return response()->json(['message' => 'Access closed'], 403);
         }
     }
 }

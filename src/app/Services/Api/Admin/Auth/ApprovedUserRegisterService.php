@@ -25,7 +25,7 @@ class ApprovedUserRegisterService
                 $this->answer = response()->json(['message' => 'success approved user'], 200);
             }
         } else {
-            $this->answer = response()->json('something wrong', 409);
+            $this->answer = response()->json(['message' => 'something wrong'], 409);
         }
     }
 }
