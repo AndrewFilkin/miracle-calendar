@@ -14,7 +14,6 @@ class Task extends Model
         'description',
         'start_date',
         'end_date',
-        'file',
         'is_completed',
     ];
 
