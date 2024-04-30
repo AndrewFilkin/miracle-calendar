@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Api\Project;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Api\Project\CreateProjectRequest;
+use App\Services\Api\Project\CreateProjectService;
+
 
 class ProjectController extends Controller
 {
-    public function create() {
-        return response()->json(['message' => 'project created'], 201);
+    public function create(CreateProjectRequest $request, CreateProjectService $createProjectService)
+    {
+        $createProjectService->createProject($request);
+
+        return $createProjectService->answer;
     }
 }
