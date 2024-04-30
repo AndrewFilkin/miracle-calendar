@@ -4,12 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Task;
 use App\Models\Comment;
+use App\Models\Project;
 
 
 Route::get('/', function () {
-    $user = User::find(1);
+    $project = Project::find(1);
 
-    foreach ($user->comments as $comment) {
-        echo $comment . '<br>';
+    foreach ($project->tasks as $task) {
+        echo $task . '<br>';
     }
 });
