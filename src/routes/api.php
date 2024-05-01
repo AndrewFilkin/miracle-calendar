@@ -25,5 +25,6 @@ Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(funct
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('project')->group(function () {
     Route::post('create', [ProjectController::class, 'create'])->name('project.create');
+    Route::patch('update/{id}', [ProjectController::class, 'update'])->name('project.update');
 });
 
