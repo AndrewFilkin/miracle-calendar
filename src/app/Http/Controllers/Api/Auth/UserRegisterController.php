@@ -63,7 +63,8 @@ class UserRegisterController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60 * 24 // 1 day
+//            'expires_in' => auth()->factory()->getTTL() * 60 * 24 * 365 // 1 year
         ]);
     }
 

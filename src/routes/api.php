@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\Project\ProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\UserRegisterController;
 use App\Http\Controllers\Api\Admin\Auth\ApprovedUserRegisterController;
 use App\Http\Middleware\Api\Admin\AdminIsValidMiddleware;
+use App\Http\Middleware\Api\IsApprovedMiddleware;
 
 /*
  * Register user without jwt token
@@ -20,4 +22,9 @@ Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(funct
     Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister']);
 });
 
+
+Route::middleware([IsApprovedMiddleware::class])->prefix('project')->group(function () {
+    Route::post('create', [ProjectController::class, 'create'])->name('project.create');
+    Route::patch('update/{id}', [ProjectController::class, 'update'])->name('project.update');
+});
 
