@@ -8,7 +8,6 @@ use App\Http\Requests\Api\Project\UpdateProjectRequest;
 use App\Models\Project;
 use App\Services\Api\Project\CreateProjectService;
 
-
 class ProjectController extends Controller
 {
     public function create(CreateProjectRequest $request, CreateProjectService $createProjectService)
