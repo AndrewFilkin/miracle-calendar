@@ -10,16 +10,18 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
+        'project_id',
         'name',
         'description',
         'start_date',
         'end_date',
         'is_completed',
+        'creator_id',
     ];
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();;
     }
 
     public function comments()

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('project_id');
             $table->string('name');
             $table->string('description');
-            $table->timestamp('start_date')->useCurrent();
+            $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->boolean('is_completed')->nullable();
             $table->integer('creator_id');
