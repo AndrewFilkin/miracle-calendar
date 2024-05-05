@@ -15,7 +15,7 @@ class UpdateProjectService
         $project = Project::find($id);
 
         if (empty($project)) {
-            $this->answer = response()->json(['message' => "Post $id not found"], 404);
+            $this->answer = response()->json(['message' => "Project $id not found"], 404);
             return;
         }
 

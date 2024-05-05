@@ -31,5 +31,6 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('project')->group(funct
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function () {
     Route::post('create', [TaskController::class, 'create'])->name('task.create');
+    Route::patch('update/{id}', [TaskController::class, 'update'])->name('task.update');
 });
 
