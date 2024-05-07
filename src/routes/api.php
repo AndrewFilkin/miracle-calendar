@@ -20,7 +20,8 @@ Route::post('update', [UserRegisterController::class, 'update'])->name('auth.upd
 
 Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(function () {
     // Admin confirm user who registered
-    Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister']);
+    Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister'])->name('admin.auth.approved');
+    Route::delete('delete/{id}', [ApprovedUserRegisterController::class, 'delete'])->name('admin.auth.delete');
 });
 
 
