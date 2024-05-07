@@ -21,8 +21,15 @@ class CreateProjectService
             'creator_id' => $creator,
         ]);
 
-        if (isset($requestData['participant'])) {
+        // participant is array and have users why can use project
+
+        if (!isset($requestData['participant'])) {
+            $requestData['participant'] = (string)$creator;
             $project->users()->attach($requestData['participant']);
+        } else {
+            array_push($requestData['participant'], (string)$creator);
+            $participant = array_unique($requestData['participant']);
+            $project->users()->attach($participant);
         }
 
         $this->answer = response()->json(['message' => 'project created'], 201);

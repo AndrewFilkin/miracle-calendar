@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\UserRegisterController;
 use App\Http\Controllers\Api\Admin\Auth\ApprovedUserRegisterController;
 use App\Http\Middleware\Api\Admin\AdminIsValidMiddleware;
 use App\Http\Middleware\Api\IsApprovedMiddleware;
+use App\Http\Controllers\Api\Task\TaskController;
 
 /*
  * Register user without jwt token
@@ -26,5 +27,10 @@ Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(funct
 Route::middleware([IsApprovedMiddleware::class])->prefix('project')->group(function () {
     Route::post('create', [ProjectController::class, 'create'])->name('project.create');
     Route::patch('update/{id}', [ProjectController::class, 'update'])->name('project.update');
+});
+
+Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function () {
+    Route::post('create', [TaskController::class, 'create'])->name('task.create');
+    Route::patch('update/{id}', [TaskController::class, 'update'])->name('task.update');
 });
 
