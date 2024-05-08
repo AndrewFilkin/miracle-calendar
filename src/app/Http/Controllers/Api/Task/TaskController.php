@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Task\CreateTaskRequest;
 use App\Models\Task;
 use App\Services\Api\Task\CreateTaskService;
 use App\Http\Requests\Api\Task\UpdateTaskRequest;
+use App\Services\Api\Task\UpdateTaskService;
 
 class TaskController extends Controller
 {
@@ -17,25 +18,15 @@ class TaskController extends Controller
         return $createTaskService->answer;
     }
 
-    public function update($id, UpdateTaskRequest $request)
+    public function update($id, UpdateTaskRequest $request, UpdateTaskService $updateTaskService)
     {
-        $task = Task::find($id);
+        $updateTaskService->updateTask($id, $request);
 
-        if (empty($task)) {
-            return response()->json(['message' => "Task $id not found"], 404);
-        }
+        return $updateTaskService->answer;
+    }
 
-        if (auth()->user()->id !== $task->creator_id) {
-            return response()->json(['message' => 'Access closed, you are not creator'], 403);
-        }
+    public function delete($id)
+    {
 
-        $data = $request->only(['name', 'description', 'start_date', 'end_date']);
-        $result = $task->fill($data)->save();
-
-        if ($result) {
-            return response()->json(['message' => 'Task updated successfully'], 200);
-        } else {
-            return response()->json(['message' => 'Task updated error'], 404);
-        }
     }
 }
