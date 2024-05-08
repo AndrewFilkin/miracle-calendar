@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Task\CreateTaskRequest;
 use App\Models\Task;
 use App\Services\Api\Task\CreateTaskService;
 use App\Http\Requests\Api\Task\UpdateTaskRequest;
+use App\Services\Api\Task\DeleteTaskService;
 use App\Services\Api\Task\UpdateTaskService;
 
 class TaskController extends Controller
@@ -25,8 +26,9 @@ class TaskController extends Controller
         return $updateTaskService->answer;
     }
 
-    public function delete($id)
+    public function delete($id, DeleteTaskService $deleteTaskService)
     {
-
+        $deleteTaskService->deleteTask($id);
+        return $deleteTaskService->answer;
     }
 }
