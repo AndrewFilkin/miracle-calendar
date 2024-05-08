@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\Auth\ApprovedUserRegisterRequest;
 use App\Models\User;
 use App\Services\Api\Admin\Auth\ApprovedUserRegisterService;
+use App\Services\Api\Admin\Auth\DeleteUserService;
 
 class ApprovedUserRegisterController extends Controller
 {
@@ -17,20 +18,10 @@ class ApprovedUserRegisterController extends Controller
         return $confirm->answer;
     }
 
-    public function delete($id)
+    public function delete($id, DeleteUserService $deleteUserService)
     {
-        $user = User::find($id);
+        $deleteUserService->deleteUser($id);
 
-        if ($user) {
-            if ($user->role == 'admin') {
-                return response()->json(['message' => 'You can not delete admin'], 403);
-            }
-            $user->delete();
-            return response()->json(['message' => 'User deleted successfully.'], 200);
-        } else {
-            return response()->json(['message' => 'User not found.'], 404);
-        }
-
-
+        return $deleteUserService->answer;
     }
 }
