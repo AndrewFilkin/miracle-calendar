@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Admin\Auth\ApprovedUserRegisterController;
 use App\Http\Middleware\Api\Admin\AdminIsValidMiddleware;
 use App\Http\Middleware\Api\IsApprovedMiddleware;
 use App\Http\Controllers\Api\Task\TaskController;
+use App\Http\Controllers\Api\Comment\CommentController;
 
 /*
  * Register user without jwt token
@@ -36,3 +37,8 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function
     Route::delete('delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
 });
 
+Route::middleware([IsApprovedMiddleware::class])->prefix('comment')->group(function () {
+    Route::post('create', [CommentController::class, 'create'])->name('comment.create');
+    Route::patch('update/{id}', [CommentController::class, 'update'])->name('comment.update');
+    Route::delete('delete/{id}', [CommentController::class, 'delete'])->name('comment.delete');
+});
