@@ -10,9 +10,10 @@ class File extends Model
     use HasFactory;
 
     protected $fillable = [
-        'file',
         'comment_id',
         'user_id',
+        'file_name_in_storage',
+        'original_name',
     ];
 
     public function user()
