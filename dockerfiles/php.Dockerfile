@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
+COPY php.ini /usr/local/etc/php/php.ini
+
 # Install PDO and PDO PostgreSQL extensions
 RUN docker-php-ext-install pdo pdo_pgsql
 

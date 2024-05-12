@@ -4591,3 +4591,16 @@ DETAIL:  Failing row contains (3, null, 2, BcLW24PES0YD9BqoZbCV43CVuYHZj00u.jpg,
 #47 /var/www/laravel/public/index.php(17): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
 #48 {main}
 "} 
+[2024-05-11 15:49:34] local.ERROR: Fruitcake\Cors\CorsService::addActualRequestHeaders(): Argument #1 ($response) must be of type Symfony\Component\HttpFoundation\Response, null given, called in /var/www/laravel/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php on line 68 {"userId":2,"exception":"[object] (TypeError(code: 0): Fruitcake\\Cors\\CorsService::addActualRequestHeaders(): Argument #1 ($response) must be of type Symfony\\Component\\HttpFoundation\\Response, null given, called in /var/www/laravel/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php on line 68 at /var/www/laravel/vendor/fruitcake/php-cors/src/CorsService.php:191)
+[stacktrace]
+#0 /var/www/laravel/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(68): Fruitcake\\Cors\\CorsService->addActualRequestHeaders(NULL, Object(Illuminate\\Http\\Request))
+#1 /var/www/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(183): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#2 /var/www/laravel/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(57): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#3 /var/www/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(183): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#4 /var/www/laravel/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(119): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#5 /var/www/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#6 /var/www/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#7 /var/www/laravel/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1168): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#8 /var/www/laravel/public/index.php(17): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#9 {main}
+"} 

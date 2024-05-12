@@ -25,13 +25,12 @@ class CommentController extends Controller
                 'comment' => $request->comment,
             ]);
 
-            return response()->json(['message' => $request->hasFile('files')], 201);
-
             if ($request->hasFile('files')) {
                 foreach ($request->file('files') as $file) {
                     $fileOriginalName = $file->getClientOriginalName();
                     $fileNameInStorage = Str::random(32) . '.' . $file->getClientOriginalExtension();
                     $file->storeAs("public/files/task/$request->task_id/", $fileNameInStorage);
+
                     //save data to db, table - files
                     $file = new File([
                         'user_id' => $creator,
