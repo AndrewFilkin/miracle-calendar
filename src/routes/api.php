@@ -42,4 +42,3 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('comment')->group(funct
     Route::patch('update/{id}', [CommentController::class, 'update'])->name('comment.update');
     Route::delete('delete/{id}', [CommentController::class, 'delete'])->name('comment.delete');
 });
-
