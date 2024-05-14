@@ -23,6 +23,7 @@ Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(funct
     Route::delete('delete/{id}', [ApprovedUserRegisterController::class, 'delete'])->name('admin.auth.delete');
     // admin show user
     Route::get('show-is-approved-users', [UserShowController::class, 'showIsApprovedUsers'])->name('show.is-approved');
+    Route::get('show-is-not-approved-users', [UserShowController::class, 'showIsNotApprovedUsers'])->name('show.is-not-approved');
 });
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('user')->group(function () {
