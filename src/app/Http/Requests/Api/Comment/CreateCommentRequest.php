@@ -25,7 +25,6 @@ class CreateCommentRequest extends FormRequest
             'task_id' => 'required|exists:tasks,id',
             'comment' => 'required|string|max:255',
             'files*' => 'file|max:50000'
-//            'files' => 'image|nullable|mimes:jpeg,png,jpg|max:2048|dimensions:width=460,height=460',
         ];
     }
 }
