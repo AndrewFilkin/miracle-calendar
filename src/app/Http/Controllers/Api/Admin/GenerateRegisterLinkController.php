@@ -17,11 +17,6 @@ class GenerateRegisterLinkController extends Controller
         ]);
 
         if ($registerLink) {
-
-            $twoDaysAgo = Carbon::now()->subDays(2);
-            RegisterLink::where('created_at', '<', $twoDaysAgo)
-                ->delete();
-
             return response()->json(['link created: ' => $code], 201);
         }
     }

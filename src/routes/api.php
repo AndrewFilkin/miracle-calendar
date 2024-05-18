@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\Admin\GenerateRegisterLinkController;
  * Register user without jwt token
  * After register admin have confirm user and create jwt
  */
-Route::post('register', [UserRegisterController::class, 'register'])->name('auth.register');
+Route::post('register/{code}', [UserRegisterController::class, 'register'])->name('auth.register');
 Route::post('login', [UserRegisterController::class, 'login'])->name('auth.login');
 
 Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(function () {

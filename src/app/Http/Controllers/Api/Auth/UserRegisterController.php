@@ -11,10 +11,10 @@ use App\Services\Api\Auth\UpdateUserService;
 
 class UserRegisterController extends Controller
 {
-    public function register(RegisterRequest $request, RegisterUserService $registerUser)
+    public function register($code, RegisterRequest $request, RegisterUserService $registerUser)
     {
         // register user
-        $registerUser->registerUser($request);
+        $registerUser->registerUser($code, $request);
 
         // return answer and status code (json)
         return $registerUser->answer;

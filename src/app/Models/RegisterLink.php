@@ -9,5 +9,7 @@ class RegisterLink extends Model
 {
     use HasFactory;
 
+    protected $table = 'register_links';
+
     protected $fillable = ['code'];
 }
