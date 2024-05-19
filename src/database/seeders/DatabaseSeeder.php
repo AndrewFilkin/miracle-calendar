@@ -2,19 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Models\Project;
 use App\Models\User;
+use Database\Factories\CreateAdminFactory;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@example.com',
@@ -23,5 +21,10 @@ class DatabaseSeeder extends Seeder
             'is_approved' => true,
             'avatar' => "admin.jpg",
         ]);
+
+        User::factory(200)->create();
+        Project::factory(200)->create();
+
+
     }
 }

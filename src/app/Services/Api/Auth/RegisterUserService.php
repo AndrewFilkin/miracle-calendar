@@ -10,7 +10,6 @@ use App\Models\RegisterLink;
 
 class RegisterUserService
 {
-
     public $answer;
 
     public function registerUser($code, RegisterRequest $request)
