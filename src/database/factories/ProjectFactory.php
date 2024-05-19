@@ -22,7 +22,7 @@ class ProjectFactory extends Factory
         return [
             'name' => fake()->name,
             'description' => fake()->text(200),
-            'creator_id' => fake()->numberBetween(0, 150),
+            'creator_id' => fake()->numberBetween(1, 200),
         ];
     }
 }

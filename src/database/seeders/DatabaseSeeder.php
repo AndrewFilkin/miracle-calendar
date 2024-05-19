@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\ProjectUser;
+use App\Models\Task;
 use App\Models\User;
 use Database\Factories\CreateAdminFactory;
 use Database\Factories\UserFactory;
@@ -24,7 +26,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory(200)->create();
         Project::factory(200)->create();
-
-
+        ProjectUser::factory(200)->create();
+        Task::factory(400)->create();
     }
 }
