@@ -14,10 +14,6 @@ class RegisterUserService
 
     public function registerUser($code, RegisterRequest $request)
     {
-        $twoDaysAgo = Carbon::now()->subDays(2);
-        RegisterLink::where('created_at', '<', $twoDaysAgo)
-            ->delete();
-
         $registerCode = RegisterLink::where('code', '=', $code)->first();
 
         if (!$registerCode) {

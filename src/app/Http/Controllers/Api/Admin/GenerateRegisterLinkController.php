@@ -3,21 +3,14 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\RegisterLink;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
+use App\Services\Api\Admin\Auth\GenerateRegisterLinkService;
 
 class GenerateRegisterLinkController extends Controller
 {
-    public function generate()
+    public function generate(GenerateRegisterLinkService $generateRegisterLinkService)
     {
-        $code = Str::random(32);
-        $registerLink = RegisterLink::create([
-            'code' => $code,
-        ]);
+        $generateRegisterLinkService->generateRegisterLink();
 
-        if ($registerLink) {
-            return response()->json(['link created: ' => $code], 201);
-        }
+        return $generateRegisterLinkService->answer;
     }
 }
