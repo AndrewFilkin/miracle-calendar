@@ -15,8 +15,6 @@ class UserFactory extends Factory
 
     protected $model = User::class;
 
-    protected static ?string $password;
-
     /**
      * Define the model's default state.
      *
@@ -28,11 +26,11 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => fake()->password,
             'role' => null,
-            'position' => fake()->randomElement(['Учитель фильки', 'Учитель физкультуры', 'Зауч', 'Учитель математики']),
+            'position' => fake()->randomElement(['Учитель физики', 'Учитель физкультуры', 'Зауч', 'Учитель математики']),
             'vk_link' => 'https://vk.com/'. Str::random(7),
-            'avatar' => fake()->image,
+            'avatar' => null,
             'is_approved' => fake()->boolean,
         ];
     }

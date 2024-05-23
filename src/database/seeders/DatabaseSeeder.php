@@ -9,8 +9,6 @@ use App\Models\ProjectUser;
 use App\Models\Task;
 use App\Models\TaskUser;
 use App\Models\User;
-use Database\Factories\CreateAdminFactory;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
