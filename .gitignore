@@ -18,3 +18,4 @@ src/npm-debug.log
 src/yarn-error.log
 src/.idea
 src/.vscode
+src/storage/logs/laravel.log
