@@ -26,11 +26,23 @@ services:
         ports:
             - "5431:5432"
         env_file:
-            - env/pgsql.env
+#            - env/pgsql.env
+            - env/pgsql_testing.env
         volumes:
             - db_data:/var/lib/postgresql/data
         networks:
             - laravel
+
+#    pgsql_testing:
+#        image: 'postgres:latest'
+#        ports:
+#            - "5431:5432"
+#        env_file:
+#            - env/pgsql_testing.env
+#        volumes:
+#            - db_data_testing:/var/lib/postgresql/data
+#        networks:
+#            - laravel
 
     composer:
         build:
