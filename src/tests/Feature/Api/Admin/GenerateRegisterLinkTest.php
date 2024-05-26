@@ -10,20 +10,27 @@ class GenerateRegisterLinkTest extends BaseAdminTest
 {
     use RefreshDatabase;
 
+    public $response;
+    public $code;
+
     public function test_generate_register_link(): void
     {
+        $this->generateRegisterLink();
 
-        $response = $this->withHeaders([
+        $this->response->assertStatus(201);
+
+        $this->assertDatabaseHas('register_links', [
+            'code' => $this->code,
+        ]);
+    }
+
+    public function generateRegisterLink() {
+
+        $this->response = $this->withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $this->getAdminToken(),
         ])->post('/api/admin/generate-register-link');
 
-        $response->assertStatus(201);
-
-        $code = $response->getOriginalContent()['link created: '];
-
-        $this->assertDatabaseHas('register_links', [
-            'code' => $code,
-        ]);
+        $this->code = $this->response->getOriginalContent()['link created: '];
     }
 }
