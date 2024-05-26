@@ -19,7 +19,7 @@ class DeleteUserService
                 return;
             }
             $user->delete();
-            $this->answer = response()->json(['message' => 'User deleted successfully.'], 200);
+            $this->answer = response()->json(['message' => 'User deleted successfully'], 200);
         } else {
             $this->answer = response()->json(['message' => 'User not found.'], 404);
         }
