@@ -4,7 +4,6 @@ namespace Tests\Feature\Api\Admin;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class DeleteUserTest extends BaseAdminTest
 {
