@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Api\User;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 
 class UserAuthTest extends BaseUserTest
 {
@@ -30,9 +32,25 @@ class UserAuthTest extends BaseUserTest
             'is_approved' => false,
         ]);
 
-        dump($response);
-
         $response->assertStatus(201)
             ->assertJson(['message' => 'register success']);
+    }
+
+    public function test_user_login()
+    {
+        $password = fake()->password;
+
+        $user = User::factory()->create([
+            'password' => Hash::make($password),
+        ]);
+
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+        ])->post('/api/login', [
+            'email' => $user->email,
+            'password' => $password,
+        ]);
+
+        $response->assertStatus(200);
     }
 }
