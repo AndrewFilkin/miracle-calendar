@@ -24,7 +24,7 @@ class GenerateRegisterLinkService
         ]);
 
         if ($registerLink) {
-            $this->answer = response()->json(['link created: ' => $code], 201);
+            $this->answer = response()->json(['link_created: ' => $code], 201);
         } else {
             $this->answer = response()->json(['message' => 'something wrong'], 409);
         }

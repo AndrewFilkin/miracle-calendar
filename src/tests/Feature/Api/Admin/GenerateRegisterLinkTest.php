@@ -31,6 +31,6 @@ class GenerateRegisterLinkTest extends BaseAdminTest
             'Authorization' => 'Bearer ' . $this->getAdminToken(),
         ])->post('/api/admin/generate-register-link');
 
-        $this->code = $this->response->getOriginalContent()['link created: '];
+        $this->code = $this->response->getOriginalContent()['link_created: '];
     }
 }
