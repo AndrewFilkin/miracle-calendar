@@ -8,6 +8,8 @@ use App\Models\User;
 
 class BaseAdminTest extends TestCase
 {
+    protected $response;
+    protected $code;
 
     protected function createAdmin()
     {
@@ -37,4 +39,15 @@ class BaseAdminTest extends TestCase
 
         return $accessToken;
     }
+
+    public function generateRegisterLink() {
+
+        $this->response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getAdminToken(),
+        ])->post('/api/admin/generate-register-link');
+
+        $this->code = $this->response->getOriginalContent()['link_created'];
+    }
+
 }
