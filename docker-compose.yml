@@ -8,6 +8,7 @@ services:
             - ./src:/var/www/laravel
         depends_on:
             - pgsql
+            - pgsql_test
             - php
         networks:
             - laravel
@@ -30,6 +31,17 @@ services:
 #            - env/pgsql_testing.env
         volumes:
             - db_data:/var/lib/postgresql/data
+        networks:
+            - laravel
+
+    pgsql_test:
+        image: 'postgres:latest'
+        ports:
+            - "5433:5432"
+        env_file:
+            - env/pgsql_testing.env
+        volumes:
+            - db_test_data:/var/lib/postgresql/data
         networks:
             - laravel
 
@@ -57,4 +69,5 @@ networks:
         driver: bridge
 volumes:
     db_data:
+    db_test_data:
 
