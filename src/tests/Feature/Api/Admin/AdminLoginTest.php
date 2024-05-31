@@ -4,13 +4,14 @@ namespace Tests\Feature\Api\Admin;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdminLoginTest extends BaseAdminTest
 {
+    use RefreshDatabase;
+
     public function test_login_admin(): void
     {
-        DB::beginTransaction();
 
         User::factory()->create([
             'name' => 'admin',
@@ -29,7 +30,5 @@ class AdminLoginTest extends BaseAdminTest
         ]);
 
         $response->assertStatus(200);
-
-        DB::rollBack();
     }
 }
