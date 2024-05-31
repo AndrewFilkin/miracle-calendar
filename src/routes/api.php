@@ -21,7 +21,7 @@ Route::post('login', [UserRegisterController::class, 'login'])->name('auth.login
 Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(function () {
     // Admin confirm user who registered
     Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister'])->name('admin.auth.approved');
-    Route::delete('delete/{user}', [ApprovedUserRegisterController::class, 'delete'])->name('admin.auth.delete');
+    Route::delete('delete/{id}', [ApprovedUserRegisterController::class, 'delete'])->name('admin.auth.delete');
     // Generate register link
     Route::post('generate-register-link', [GenerateRegisterLinkController::class, 'generate'])->name('auth.generate.link');
     // admin show user

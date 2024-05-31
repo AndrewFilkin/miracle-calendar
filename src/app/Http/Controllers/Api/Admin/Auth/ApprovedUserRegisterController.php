@@ -18,12 +18,10 @@ class ApprovedUserRegisterController extends Controller
         return $confirm->answer;
     }
 
-    public function delete(User $user, DeleteUserService $deleteUserService)
+    public function delete($id, DeleteUserService $deleteUserService)
     {
-        dd($user);
+        $deleteUserService->deleteUser($id);
 
-//        $deleteUserService->deleteUser($id);
-//
-//        return $deleteUserService->answer;
+        return $deleteUserService->answer;
     }
 }
