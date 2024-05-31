@@ -11,10 +11,11 @@ use Illuminate\Support\Str;
 class GenerateRegisterLinkService
 {
     public $answer;
+    const MAX_EXPIRE_DAYS = 2;
 
     public function generateRegisterLink()
     {
-        $twoDaysAgo = Carbon::now()->subDays(2);
+        $twoDaysAgo = Carbon::now()->subDays(self::MAX_EXPIRE_DAYS);
         RegisterLink::where('created_at', '<', $twoDaysAgo)
             ->delete();
 

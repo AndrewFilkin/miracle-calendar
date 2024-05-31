@@ -11,9 +11,9 @@ class ApprovedUserRegisterService
 {
     public $answer;
 
-    public function approved(ApprovedUserRegisterRequest $request): void
+    public function approved(array $validatedData): void
     {
-        $email = $request->only('email');
+        $email = $validatedData['email'];
         $user = User::where('email', $email)->first();
 
         if ($user) {
