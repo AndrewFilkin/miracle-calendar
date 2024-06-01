@@ -10,6 +10,7 @@ services:
             - pgsql
             - pgsql_test
             - php
+            - cron
         networks:
             - laravel
 
@@ -61,6 +62,15 @@ services:
         volumes:
             - ./src:/var/www/laravel
         entrypoint: [ "php", "/var/www/laravel/artisan" ]
+        networks:
+            - laravel
+
+    cron:
+        build:
+            context: dockerfiles
+            dockerfile: cron.Dockerfile
+        volumes:
+            - ./src:/var/www/laravel
         networks:
             - laravel
 
