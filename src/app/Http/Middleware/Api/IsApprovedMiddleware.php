@@ -19,10 +19,10 @@ class IsApprovedMiddleware
             if (auth()->user()->is_approved == "true") {
                 return $next($request);
             } else {
-                return response()->json(['message' => 'Access closed'], 403);
+                return response()->json(['message' => 'Access closed, you are not approved by the administrator'], 403);
             }
         } else {
-            return response()->json(['message' => 'Access closed'], 403);
+            return response()->json(['message' => 'Access closed, you are not approved by the administrator'], 403);
         }
     }
 }

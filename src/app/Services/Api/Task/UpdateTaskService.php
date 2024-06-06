@@ -19,7 +19,7 @@ class UpdateTaskService
         }
 
         if (auth()->user()->id == $task->creator_id || auth()->user()->role == 'admin') {
-            $data = $request->only(['name', 'description', 'start_date', 'end_date']);
+            $data = $request->only(['name', 'description', 'start_date', 'end_date', 'is_urgently', 'is_completed',]);
             $result = $task->fill($data)->save();
 
             if ($result) {

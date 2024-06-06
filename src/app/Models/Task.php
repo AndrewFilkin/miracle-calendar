@@ -16,6 +16,7 @@ class Task extends Model
         'start_date',
         'end_date',
         'is_completed',
+        'is_urgently',
         'creator_id',
     ];
 

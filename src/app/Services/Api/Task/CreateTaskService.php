@@ -16,7 +16,7 @@ class CreateTaskService
     {
         $creator = auth()->user()->id;
 
-        $requestData = $request->only(['project_id', 'name', 'description', 'start_date', 'end_date', 'participant']);
+        $requestData = $request->only(['project_id', 'name', 'description', 'start_date', 'end_date', 'is_urgently', 'is_completed', 'participant']);
 
         $task = Task::create([
             'project_id' => $requestData['project_id'],
@@ -24,6 +24,8 @@ class CreateTaskService
             'description' => $requestData['description'],
             'start_date' => $requestData['start_date'],
             'end_date' => $requestData['end_date'],
+            'is_completed' => $requestData['is_completed'],
+            'is_urgently' => $requestData['is_urgently'],
             'creator_id' => $creator,
         ]);
 

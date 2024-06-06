@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('description');
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
-            $table->boolean('is_completed')->nullable();
+            $table->boolean('is_completed')->default(false);
+            $table->boolean('is_urgently')->default(false);
             $table->integer('creator_id');
-
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->timestamps();
         });

@@ -29,6 +29,7 @@ class TaskFactory extends Factory
             'start_date' => $startDate,
             'end_date' => $endDate,
             'is_completed' => fake()->boolean,
+            'is_urgently' => fake()->boolean,
             'creator_id' => fake()->numberBetween(1, 200),
         ];
     }
