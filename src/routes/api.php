@@ -23,6 +23,8 @@ Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(funct
 
     Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister'])->name('admin.auth.approved');
     Route::delete('delete/user/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
+    Route::post('update/user/{id}', [UserController::class, 'update'])->name('admin.user.update');
+//    Route::post('update', [UserRegisterController::class, 'update'])->name('auth.update');
     Route::post('generate-register-link', [GenerateRegisterLinkController::class, 'generate'])->name('auth.generate.link');
 
     Route::get('show-is-approved-users', [UserShowController::class, 'showIsApprovedUsers'])->name('show.is-approved');
@@ -31,7 +33,6 @@ Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(funct
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('user')->group(function () {
     Route::post('logout', [UserRegisterController::class, 'logout'])->name('auth.logout');
-    Route::post('update', [UserRegisterController::class, 'update'])->name('auth.update');
 });
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('project')->group(function () {
