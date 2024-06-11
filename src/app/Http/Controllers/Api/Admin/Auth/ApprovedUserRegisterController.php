@@ -12,16 +12,7 @@ class ApprovedUserRegisterController extends Controller
 {
     public function approvedUserRegister(ApprovedUserRegisterRequest $request, ApprovedUserRegisterService $confirm)
     {
-        //confirm user
         $confirm->approved($request->validated());
-        // spend answer
         return $confirm->answer;
-    }
-
-    public function delete($id, DeleteUserService $deleteUserService)
-    {
-        $deleteUserService->deleteUser($id);
-
-        return $deleteUserService->answer;
     }
 }

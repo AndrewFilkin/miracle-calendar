@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Task\TaskController;
 use App\Http\Controllers\Api\Comment\CommentController;
 use App\Http\Controllers\Api\Admin\UserShowController;
 use App\Http\Controllers\Api\Admin\GenerateRegisterLinkController;
+use App\Http\Controllers\Api\Admin\UserController;
 
 /*
  * Register user without jwt token
@@ -21,8 +22,7 @@ Route::post('login', [UserRegisterController::class, 'login'])->name('auth.login
 Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(function () {
 
     Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister'])->name('admin.auth.approved');
-    Route::delete('delete/{id}', [ApprovedUserRegisterController::class, 'delete'])->name('admin.auth.delete');
-
+    Route::delete('delete/user/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
     Route::post('generate-register-link', [GenerateRegisterLinkController::class, 'generate'])->name('auth.generate.link');
 
     Route::get('show-is-approved-users', [UserShowController::class, 'showIsApprovedUsers'])->name('show.is-approved');
