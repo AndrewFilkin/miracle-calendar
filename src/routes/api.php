@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Comment\CommentController;
 use App\Http\Controllers\Api\Admin\UserShowController;
 use App\Http\Controllers\Api\Admin\GenerateRegisterLinkController;
 use App\Http\Controllers\Api\Admin\UserController;
+use App\Http\Controllers\Api\Admin\UserSearchController;
 
 /*
  * Register user without jwt token
@@ -23,7 +24,9 @@ Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(funct
     Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister'])->name('admin.auth.approved');
     Route::delete('delete/user/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
     Route::post('update/user/{id}', [UserController::class, 'update'])->name('admin.user.update');
-//    Route::post('update', [UserRegisterController::class, 'update'])->name('auth.update');
+    Route::get('search/approved/user', [UserSearchController::class, 'searchApprovedUsers'])->name('admin.search.approved.users');
+    Route::get('search/not-approved/user', [UserSearchController::class, 'searchNotApprovedUsers'])->name('admin.search.not.approved.users');
+
     Route::post('generate-register-link', [GenerateRegisterLinkController::class, 'generate'])->name('auth.generate.link');
 
     Route::get('show-is-approved-users', [UserShowController::class, 'showIsApprovedUsers'])->name('show.is-approved');
@@ -45,3 +48,5 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('comment')->group(funct
     Route::patch('update/{id}', [CommentController::class, 'update'])->name('comment.update');
     Route::delete('delete/{id}', [CommentController::class, 'delete'])->name('comment.delete');
 });
+
+//Route::get('search/user', [UserSearchController::class, 'searchApprovedUsers'])->name('admin.search.approved.users');
