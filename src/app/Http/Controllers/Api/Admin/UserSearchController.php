@@ -13,7 +13,7 @@ class UserSearchController extends Controller
         $currentUserId = auth()->user()->id;
 
         $query = $request->get('query', '');
-        $results = User::whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($query) . '%'])
+        $results = User::where('name', 'ILIKE', "%{$query}%")
             ->where('is_approved', '=', true)
             ->where('id', '!=', $currentUserId)->get();
 
@@ -25,7 +25,7 @@ class UserSearchController extends Controller
         $currentUserId = auth()->user()->id;
 
         $query = $request->get('query', '');
-        $results = User::whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($query) . '%'])
+        $results = User::where('name', 'ILIKE', "%{$query}%")
             ->where('is_approved', '=', false)
             ->where('id', '!=', $currentUserId)->get();
 
