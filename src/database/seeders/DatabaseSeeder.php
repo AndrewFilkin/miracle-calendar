@@ -26,8 +26,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(200)->create();
-        Project::factory(200)->create();
-        ProjectUser::factory(200)->create();
         Task::factory(400)->create();
         TaskUser::factory(400)->create();
         Comment::factory(1000)->create();

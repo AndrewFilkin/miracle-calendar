@@ -23,7 +23,6 @@ class TaskFactory extends Factory
         $endDate = fake()->dateTimeBetween($startDate, '+1 years');
 
         return [
-            'project_id' => fake()->numberBetween(1, 200),
             'name' => fake()->slug,
             'description' => fake()->text(200),
             'start_date' => $startDate,

@@ -22,14 +22,12 @@ class CreateTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'project_id' => 'required|exists:projects,id',
             'name' => 'required|string|max:255',
             'description' => 'string|max:255',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'is_completed' => 'boolean',
             'is_urgently' => 'boolean',
-            'participant.*' => 'numeric|exists:users,id',
         ];
     }
 }

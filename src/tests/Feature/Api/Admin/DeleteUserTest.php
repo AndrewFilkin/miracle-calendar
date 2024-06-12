@@ -16,7 +16,7 @@ class DeleteUserTest extends BaseAdminTest
         $response = $this->withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $this->getAdminToken(),
-        ])->deleteJson("/api/admin/delete/{$user->id}");
+        ])->deleteJson("/api/admin/delete/user/{$user->id}");
 
         $response->assertStatus(200)
             ->assertJson(['message' => 'User deleted successfully']);

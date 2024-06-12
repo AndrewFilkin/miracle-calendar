@@ -30,7 +30,5 @@ class UpdateTaskService
         } else {
             $this->answer = response()->json(['message' => 'Access is closed, task update can only be done by task creator or administrator'], 403);
         }
-
-
     }
 }
