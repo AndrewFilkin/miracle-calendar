@@ -10,6 +10,12 @@ class UserSearchController extends Controller
 {
     public function searchApprovedUsers(SearchQueryRequest $request)
     {
+        $messageNotFound = array(
+            "name" => array(
+                'Not found',
+            )
+        );
+
         $currentUserId = auth()->user()->id;
 
         $query = $request->get('query', '');
@@ -17,11 +23,21 @@ class UserSearchController extends Controller
             ->where('is_approved', '=', true)
             ->where('id', '!=', $currentUserId)->get();
 
-        return response()->json($results);
+        if (!$results->isEmpty()) {
+            return response()->json($results);
+        } else {
+            return response()->json([$messageNotFound]);
+        }
     }
 
     public function searchNotApprovedUsers(SearchQueryRequest $request)
     {
+        $messageNotFound = array(
+            "name" => array(
+                'Not found',
+            )
+        );
+
         $currentUserId = auth()->user()->id;
 
         $query = $request->get('query', '');
@@ -29,6 +45,10 @@ class UserSearchController extends Controller
             ->where('is_approved', '=', false)
             ->where('id', '!=', $currentUserId)->get();
 
-        return response()->json($results);
+        if (!$results->isEmpty()) {
+            return response()->json($results);
+        } else {
+            return response()->json([$messageNotFound]);
+        }
     }
 }
