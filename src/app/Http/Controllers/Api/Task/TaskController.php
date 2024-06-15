@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Task;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Admin\SearchQueryRequest;
 use App\Http\Requests\Api\Task\CreateTaskRequest;
 use App\Http\Resources\Api\Task\ShowUserResource;
 use App\Models\User;
@@ -23,6 +24,29 @@ class TaskController extends Controller
             ->get();
 
         return ShowUserResource::collection($users)->resolve();
+    }
+
+    public function searchUser(SearchQueryRequest $request)
+    {
+        $messageNotFound = array(
+            "name" => array(
+                'Not found',
+            )
+        );
+
+        $currentUserId = auth()->user()->id;
+
+        $query = $request->get('query', '');
+
+        $results = User::where('name', 'ILIKE', "%{$query}%")
+            ->where('is_approved', '=', true)
+            ->where('id', '!=', $currentUserId)->get();
+
+        if (!$results->isEmpty()) {
+            return response()->json($results);
+        } else {
+            return response()->json([$messageNotFound]);
+        }
     }
 
     public function create(CreateTaskRequest $request, CreateTaskService $createTaskService)

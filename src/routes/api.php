@@ -39,6 +39,7 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('user')->group(function
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function () {
     Route::get('show-user', [TaskController::class, 'showUser'])->name('task.show.user');
+    Route::get('search-user', [TaskController::class, 'searchUser'])->name('task.search.user');
     Route::post('create', [TaskController::class, 'create'])->name('task.create');
     Route::patch('update/{id}', [TaskController::class, 'update'])->name('task.update');
     Route::delete('delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
