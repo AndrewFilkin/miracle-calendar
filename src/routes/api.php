@@ -38,6 +38,7 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('user')->group(function
 });
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function () {
+    Route::get('show-user', [TaskController::class, 'showUser'])->name('task.show.user');
     Route::post('create', [TaskController::class, 'create'])->name('task.create');
     Route::patch('update/{id}', [TaskController::class, 'update'])->name('task.update');
     Route::delete('delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
@@ -48,5 +49,3 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('comment')->group(funct
     Route::patch('update/{id}', [CommentController::class, 'update'])->name('comment.update');
     Route::delete('delete/{id}', [CommentController::class, 'delete'])->name('comment.delete');
 });
-
-//Route::get('search/user', [UserSearchController::class, 'searchApprovedUsers'])->name('admin.search.approved.users');
