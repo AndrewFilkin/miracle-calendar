@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Task;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Admin\SearchQueryRequest;
+use App\Http\Requests\Api\Task\SearchQueryRequest;
 use App\Http\Requests\Api\Task\CreateTaskRequest;
 use App\Http\Resources\Api\Task\ShowUserResource;
 use App\Models\User;
