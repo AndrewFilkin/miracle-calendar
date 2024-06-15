@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Api\Task;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Task\CreateTaskRequest;
-use App\Http\Resources\Api\Admin\UserResource;
-use App\Models\Task;
+use App\Http\Resources\Api\Task\ShowUserResource;
 use App\Models\User;
 use App\Services\Api\Task\CreateTaskService;
 use App\Http\Requests\Api\Task\UpdateTaskRequest;
@@ -23,7 +22,7 @@ class TaskController extends Controller
             ->where('id', '!=', $id)
             ->get();
 
-        return UserResource::collection($users)->resolve();
+        return ShowUserResource::collection($users)->resolve();
     }
 
     public function create(CreateTaskRequest $request, CreateTaskService $createTaskService)
