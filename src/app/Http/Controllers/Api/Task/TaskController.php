@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Task;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Task\FilterRequest;
 use App\Http\Requests\Api\Task\SearchQueryRequest;
 use App\Http\Requests\Api\Task\CreateTaskRequest;
 use App\Http\Resources\Api\Task\ShowUserResource;
@@ -20,13 +21,32 @@ class TaskController extends Controller
     из таблицы task_user
     */
 
-    public function showTask()
+    public function showTask(FilterRequest $request)
     {
-        $id = auth()->user()->id;
-        $user = User::find($id);
-        $tasks = $user->tasks()->paginate(30);
+        $filterFirst = $request->filterFirst;
+        $filterSecond = $request->filterSecond;
 
-        return response()->json($tasks);
+        $id = auth()->user()->id;
+
+        switch ($filterFirst) {
+            case 'completed':
+                $user = User::find($id);
+                $tasks = $user->tasks()
+                    ->where('is_completed', '=', true)
+                    ->paginate(30);
+                return response()->json($tasks);
+
+            case 'not_completed':
+
+            case 'expired':
+
+            case 'not_expired':
+
+            default:
+                $user = User::find($id);
+                $tasks = $user->tasks()->paginate(30);
+                return response()->json($tasks);
+        }
     }
 
     public function showUser()
