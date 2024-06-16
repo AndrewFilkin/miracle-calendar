@@ -28,6 +28,7 @@ class CreateTaskRequest extends FormRequest
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'is_completed' => 'boolean',
             'is_urgently' => 'boolean',
+            'participant.*' => 'numeric|exists:users,id',
         ];
     }
 }
