@@ -32,11 +32,6 @@ Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(funct
 
     Route::get('show-is-approved-users', [UserShowController::class, 'showIsApprovedUsers'])->name('show.is-approved');
     Route::get('show-is-not-approved-users', [UserShowController::class, 'showIsNotApprovedUsers'])->name('show.is-not-approved');
-
-    Route::get('sort-asc-is-approved-user', [UserSortController::class, 'sortAscIsApprovedUser'])->name('sort.asc.is-approved.user');
-    Route::get('sort-asc-is-not-approved-user', [UserSortController::class, 'sortAscIsNotApprovedUser'])->name('sort.asc.is-not-approved.user');
-    Route::get('sort-desc-is-approved-user', [UserSortController::class, 'sortDescIsApprovedUser'])->name('sort.desc.is-approved.user');
-    Route::get('sort-desc-is-not-approved-user', [UserSortController::class, 'sortDescIsNotApprovedUser'])->name('sort.desc.is-not-approved.user');
 });
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('user')->group(function () {
