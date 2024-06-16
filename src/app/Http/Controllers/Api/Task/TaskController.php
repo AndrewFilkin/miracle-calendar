@@ -15,6 +15,16 @@ use App\Services\Api\Task\UpdateTaskService;
 class TaskController extends Controller
 {
 
+    // посмотреть все задачи которые сам создал и ему создали
+    public function showTask()
+    {
+        $id = auth()->user()->id;
+        $user = User::find($id);
+        $tasks = $user->tasks()->paginate(30);
+
+        return response()->json($tasks);
+    }
+
     public function showUser()
     {
         $id = auth()->user()->id;
