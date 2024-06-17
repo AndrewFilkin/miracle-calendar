@@ -12,6 +12,7 @@ use App\Services\Api\Task\CreateTaskService;
 use App\Http\Requests\Api\Task\UpdateTaskRequest;
 use App\Services\Api\Task\DeleteTaskService;
 use App\Services\Api\Task\UpdateTaskService;
+use Carbon\Carbon;
 
 class TaskController extends Controller
 {
@@ -29,19 +30,184 @@ class TaskController extends Controller
         $id = auth()->user()->id;
 
         switch ($filterFirst) {
-            case 'completed':
+
+            case 'asc':
                 $user = User::find($id);
                 $tasks = $user->tasks()
-                    ->where('is_completed', '=', true)
+                    ->orderBy('name', 'asc')
                     ->paginate(30);
                 return response()->json($tasks);
 
-            case 'not_completed':
+            case 'desc':
+                $user = User::find($id);
+                $tasks = $user->tasks()
+                    ->orderBy('name', 'desc')
+                    ->paginate(30);
+                return response()->json($tasks);
 
+            case 'completed':
+                switch ($filterSecond) {
+                    case 'asc':
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('is_completed', '=', true)
+                            ->orderBy('name', 'asc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+
+                    case 'desc':
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('is_completed', '=', true)
+                            ->orderBy('name', 'desc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+
+                    default:
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('is_completed', '=', true)
+                            ->paginate(30);
+                        return response()->json($tasks);
+                }
+
+            case 'not_completed':
+                switch ($filterSecond) {
+                    case 'asc':
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('is_completed', '=', false)
+                            ->orderBy('name', 'asc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+
+                    case 'desc':
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('is_completed', '=', false)
+                            ->orderBy('name', 'desc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+
+                    default:
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('is_completed', '=', false)
+                            ->paginate(30);
+                        return response()->json($tasks);
+                }
             case 'expired':
+                switch ($filterSecond) {
+                    case 'asc':
+                        $currentDate = Carbon::now();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('end_date', '<', $currentDate)
+                            ->orderBy('name', 'asc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+
+                    case 'desc':
+                        $currentDate = Carbon::now();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('end_date', '<', $currentDate)
+                            ->orderBy('name', 'desc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+
+                    default:
+                        $currentDate = Carbon::now();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('end_date', '<', $currentDate)
+                            ->paginate(30);
+                        return response()->json($tasks);
+                }
 
             case 'not_expired':
+                switch ($filterSecond) {
+                    case 'asc':
+                        $currentDate = Carbon::now();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('end_date', '>', $currentDate)
+                            ->orderBy('name', 'asc')
+                            ->paginate(30);
+                        return response()->json($tasks);
 
+                    case 'desc':
+                        $currentDate = Carbon::now();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('end_date', '>', $currentDate)
+                            ->orderBy('name', 'desc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+
+                    default:
+                        $currentDate = Carbon::now();
+
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('end_date', '>', $currentDate)
+                            ->paginate(30);
+                        return response()->json($tasks);
+                }
+
+            case 'current_date':
+                switch ($filterSecond) {
+                    case 'asc':
+                        $currentDate = Carbon::now();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('end_date', '=', $currentDate)
+                            ->orderBy('name', 'asc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+                    case 'desc':
+                        $currentDate = Carbon::now();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('end_date', '=', $currentDate)
+                            ->orderBy('name', 'desc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+                    default:
+                        $currentDate = Carbon::now();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('end_date', '=', $currentDate)
+                            ->paginate(30);
+                        return response()->json($tasks);
+                }
+
+            case 'specific_date':
+                switch ($filterSecond) {
+                    case 'asc':
+                        $specificDate = Carbon::parse($request->specific_date);
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('start_date', '=', $specificDate)
+                            ->orderBy('name', 'asc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+                    case 'desc':
+                        $specificDate = Carbon::parse($request->specific_date);
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('start_date', '=', $specificDate)
+                            ->orderBy('name', 'desc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+                    default:
+                        $specificDate = Carbon::parse($request->specific_date);
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->where('start_date', '=', $specificDate)
+                            ->paginate(30);
+                        return response()->json($tasks);
+                }
             default:
                 $user = User::find($id);
                 $tasks = $user->tasks()->paginate(30);
