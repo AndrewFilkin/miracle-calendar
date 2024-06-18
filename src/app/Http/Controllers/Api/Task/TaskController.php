@@ -118,6 +118,7 @@ class TaskController extends Controller
 
                     default:
                         $currentDate = Carbon::now();
+                        dd($currentDate);
                         $user = User::find($id);
                         $tasks = $user->tasks()
                             ->where('end_date', '<', $currentDate)
@@ -161,7 +162,7 @@ class TaskController extends Controller
                         $currentDate = Carbon::now();
                         $user = User::find($id);
                         $tasks = $user->tasks()
-                            ->where('end_date', '=', $currentDate)
+                            ->where('start_date', '=', $currentDate)
                             ->orderBy('name', 'asc')
                             ->paginate(30);
                         return response()->json($tasks);
@@ -169,7 +170,7 @@ class TaskController extends Controller
                         $currentDate = Carbon::now();
                         $user = User::find($id);
                         $tasks = $user->tasks()
-                            ->where('end_date', '=', $currentDate)
+                            ->where('start_date', '=', $currentDate)
                             ->orderBy('name', 'desc')
                             ->paginate(30);
                         return response()->json($tasks);
@@ -177,7 +178,7 @@ class TaskController extends Controller
                         $currentDate = Carbon::now();
                         $user = User::find($id);
                         $tasks = $user->tasks()
-                            ->where('end_date', '=', $currentDate)
+                            ->where('start_date', '=', $currentDate)
                             ->paginate(30);
                         return response()->json($tasks);
                 }
