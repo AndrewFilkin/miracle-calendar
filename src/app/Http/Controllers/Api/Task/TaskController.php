@@ -24,6 +24,8 @@ class TaskController extends Controller
 
     public function showTask(FilterRequest $request)
     {
+//        $data = $request->validated();
+
         $filterFirst = $request->filterFirst;
         $filterSecond = $request->filterSecond;
 
@@ -239,6 +241,40 @@ class TaskController extends Controller
                             ->paginate(30);
                         return response()->json($tasks);
                 }
+
+
+            case 'between_date':
+                switch ($filterSecond) {
+                    case 'asc':
+                        $startDate = Carbon::parse($request->start_date)->startOfDay();
+                        $endDate = Carbon::parse($request->end_date)->endOfDay();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->whereBetween('start_date', [$startDate, $endDate])
+                            ->orderBy('name', 'asc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+
+                    case 'desc':
+                        $startDate = Carbon::parse($request->start_date)->startOfDay();
+                        $endDate = Carbon::parse($request->end_date)->endOfDay();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->whereBetween('start_date', [$startDate, $endDate])
+                            ->orderBy('name', 'desc')
+                            ->paginate(30);
+                        return response()->json($tasks);
+
+                    default:
+                        $startDate = Carbon::parse($request->start_date)->startOfDay();
+                        $endDate = Carbon::parse($request->end_date)->endOfDay();
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->whereBetween('start_date', [$startDate, $endDate])
+                            ->paginate(30);
+                        return response()->json($tasks);
+                }
+
             default:
                 $user = User::find($id);
                 $tasks = $user->tasks()->paginate(30);

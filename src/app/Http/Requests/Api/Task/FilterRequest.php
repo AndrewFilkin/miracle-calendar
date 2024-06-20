@@ -22,9 +22,11 @@ class FilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'filterFirst' => 'in:asc,desc,completed,not_completed,expired,not_expired,current_date,specific_date,without_expired',
+            'filterFirst' => 'in:asc,desc,completed,not_completed,expired,not_expired,current_date,specific_date,without_expired,between_date',
             'filterSecond' => 'in:asc,desc',
             'specific_date' => 'nullable|date',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
         ];
     }
 }
