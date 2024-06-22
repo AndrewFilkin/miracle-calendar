@@ -31,6 +31,15 @@ class TaskController extends Controller
         return $showTaskService->answer;
     }
 
+    public function showTaskInCalendar()
+    {
+        $id = auth()->user()->id;
+
+        $user = User::find($id);
+        $tasks = $user->tasks()->orderBy('start_date')->get();
+        return response()->json($tasks);
+    }
+
     public function showUser()
     {
         $id = auth()->user()->id;
