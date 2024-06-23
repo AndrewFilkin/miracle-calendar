@@ -30,7 +30,6 @@ class UserFactory extends Factory
             'role' => null,
             'position' => fake()->randomElement(['Учитель физики', 'Учитель физкультуры', 'Зауч', 'Учитель математики']),
             'vk_link' => 'https://vk.com/'. Str::random(7),
-            'avatar' => fake()->randomElement(['photo.png', 'image.jpg', 'photo_name.jpeg', null]),
             'is_approved' => fake()->boolean,
         ];
     }

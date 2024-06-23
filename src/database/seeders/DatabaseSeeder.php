@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('wMZn5wfqPF67qrQ'),
             'role' => 'admin',
             'is_approved' => true,
-            'avatar' => "admin.jpg",
         ]);
 
         User::factory(200)->create();

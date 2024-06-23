@@ -31,6 +31,8 @@ class RegisterUserService
             return;
         }
 
+        DB::beginTransaction();
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -38,20 +40,10 @@ class RegisterUserService
         $user->vk_link = $request->vk_link;
         $user->password = bcrypt($request->password);
 
-        DB::beginTransaction();
+        $user->save();
 
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
-            $avatar->storeAs('public/avatars', $avatarName);
-            $user->avatar = $avatarName;
-            $user->save();
-            DB::commit();
-        } else {
-            $user->save();
-            DB::commit();
-        }
         if ($user->wasRecentlyCreated) {
+            DB::commit();
             $this->answer = response()->json(['message' => 'register success'], 201);
         } else {
             DB::rollBack();

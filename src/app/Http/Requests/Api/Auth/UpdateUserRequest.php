@@ -26,7 +26,6 @@ class UpdateUserRequest extends FormRequest
             'email' => 'email|min:8|max:100|unique:users,email',
             'vk_link' => 'nullable|url|max:200',
             'password' => 'string|min:8|max:100|confirmed',
-            'avatar' => 'image|mimes:jpeg,png,jpg|max:2048|dimensions:width=460,height=460',
         ];
     }
 }

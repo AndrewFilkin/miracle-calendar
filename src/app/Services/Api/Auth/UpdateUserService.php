@@ -16,8 +16,9 @@ class UpdateUserService
 {
     public $answer;
 
-    public function updateUser($id, UpdateUserRequest $request)
+    public function updateUser($id, $data)
     {
+
         $user = User::find($id);
 
         if (!$user) {
@@ -25,9 +26,7 @@ class UpdateUserService
             return;
         }
 
-        $data = $request->only(['name', 'email', 'vk_link', 'content', 'password']);
-
-        if ($request->password) {
+        if (array_key_exists('password', $data)) {
             $data['password'] = Hash::make($data['password']);
         }
 
@@ -35,22 +34,9 @@ class UpdateUserService
             $result = $user->fill($data);
             DB::beginTransaction();
 
-            if ($request->hasFile('avatar')) {
-                // Delete previous avatar
-                Storage::delete('public/avatars/' . $user->avatar);
-                // Create new avatar
-                $avatar = $request->file('avatar');
-                $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
-                $avatar->storeAs('public/avatars', $avatarName);
-                $user->avatar = $avatarName;
-                $result->save();
-                DB::commit();
-                $this->answer = response()->json(['message' => 'update success'], 201);
-            } else {
-                $result->save();
-                DB::commit();
-                $this->answer = response()->json(['message' => 'update success'], 201);
-            }
+            $result->save();
+            DB::commit();
+            $this->answer = response()->json(['message' => 'update success'], 201);
 
         } catch (QueryException $e) {
             return $this->answer = response()->json(['error' => 'Database error: ' . $e->getMessage()], 500);

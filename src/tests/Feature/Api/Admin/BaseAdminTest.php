@@ -19,7 +19,6 @@ class BaseAdminTest extends TestCase
             'password' => Hash::make('wMZn5wfqPF67qrQ'),
             'role' => 'admin',
             'is_approved' => true,
-            'avatar' => "admin.jpg",
         ]);
     }
 

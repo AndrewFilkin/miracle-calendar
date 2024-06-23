@@ -13,7 +13,9 @@ class UserController extends Controller
 
     public function update($id, UpdateUserRequest $request, UpdateUserService $updateUser)
     {
-        $updateUser->updateUser($id, $request);
+        $data = $request->validated();
+
+        $updateUser->updateUser($id, $data);
 
         return $updateUser->answer;
     }
