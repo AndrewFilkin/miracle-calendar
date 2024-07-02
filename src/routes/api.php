@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\Admin\UserShowController;
 use App\Http\Controllers\Api\Admin\GenerateRegisterLinkController;
 use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\Admin\UserSearchController;
-use App\Http\Controllers\Api\Admin\UserSortController;
+use App\Http\Controllers\Api\Task\VkNotificationController;
 
 /*
  * Register user without jwt token
@@ -38,7 +38,6 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('user')->group(function
 });
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function () {
-
     Route::get('show', [TaskController::class, 'showTask'])->name('show.task');
     Route::get('show/calendar', [TaskController::class, 'showTaskInCalendar'])->name('show.task.in.calendar');
 
@@ -48,6 +47,8 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function
     Route::post('create', [TaskController::class, 'create'])->name('task.create');
     Route::patch('update/{id}', [TaskController::class, 'update'])->name('task.update');
     Route::delete('delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
+
+    Route::get('send-notification-to-vk', [VkNotificationController::class, 'send'])->name('send.notification.to.vk');
 });
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('comment')->group(function () {
