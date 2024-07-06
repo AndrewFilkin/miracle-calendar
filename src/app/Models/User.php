@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
-        'avatar',
+        'vk_user_id',
         'position',
         'role',
         'is_approved',

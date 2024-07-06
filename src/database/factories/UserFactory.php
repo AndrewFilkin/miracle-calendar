@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'password' => fake()->password,
             'role' => null,
             'position' => fake()->randomElement(['Учитель физики', 'Учитель физкультуры', 'Зауч', 'Учитель математики']),
-            'vk_link' => 'https://vk.com/'. Str::random(7),
+            'vk_user_id' => null,
             'is_approved' => fake()->boolean,
         ];
     }

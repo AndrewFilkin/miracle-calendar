@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\Task\VkNotificationController;
  */
 Route::post('register/{code}', [UserRegisterController::class, 'register'])->name('auth.register');
 Route::post('login', [UserRegisterController::class, 'login'])->name('auth.login');
+Route::post('logout', [UserRegisterController::class, 'logout'])->name('auth.logout');
 
 Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(function () {
     Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister'])->name('admin.auth.approved');
@@ -31,10 +32,6 @@ Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(funct
 
     Route::get('show-is-approved-users', [UserShowController::class, 'showIsApprovedUsers'])->name('show.is-approved');
     Route::get('show-is-not-approved-users', [UserShowController::class, 'showIsNotApprovedUsers'])->name('show.is-not-approved');
-});
-
-Route::middleware([IsApprovedMiddleware::class])->prefix('user')->group(function () {
-    Route::post('logout', [UserRegisterController::class, 'logout'])->name('auth.logout');
 });
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function () {

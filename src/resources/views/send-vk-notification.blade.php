@@ -8,6 +8,7 @@
 <h2>Hello world</h2>
 <!-- Put this div tag to the place, where the Allow messages from community block will be -->
 <div id="vk_allow_messages_from_community"></div>
+
 <script type="text/javascript">
     VK.Widgets.AllowMessagesFromCommunity("vk_allow_messages_from_community", {height: 30}, 226422275);
 
@@ -23,5 +24,6 @@
         document.getElementById('vk_id').value='';
     });
 </script>
+
 </body>
 </html>

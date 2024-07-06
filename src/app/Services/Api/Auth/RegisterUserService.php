@@ -37,7 +37,7 @@ class RegisterUserService
         $user->name = $request->name;
         $user->email = $request->email;
         $user->position = $request->position;
-        $user->vk_link = $request->vk_link;
+        $user->vk_user_id = $request->vk_link;
         $user->password = bcrypt($request->password);
 
         $user->save();

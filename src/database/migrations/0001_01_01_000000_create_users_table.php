@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('email')->unique();
             $table->string('position');
-            $table->string('vk_link')->nullable();
+            $table->integer('vk_user_id')->nullable();
             $table->string('password');
             $table->string('role')->nullable();
             $table->boolean('is_approved')->default(false);

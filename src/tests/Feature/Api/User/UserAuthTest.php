@@ -27,7 +27,7 @@ class UserAuthTest extends BaseUserTest
             'password_confirmation' => $password,
             'role' => null,
             'position' => fake()->randomElement(['Учитель физики', 'Учитель физкультуры', 'Зауч', 'Учитель математики']),
-            'vk_link' => 'https://vk.com/'. Str::random(7),
+            'vk_user_id' => null,
             'is_approved' => false,
         ]);
 

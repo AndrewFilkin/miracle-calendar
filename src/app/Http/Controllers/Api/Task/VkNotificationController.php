@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Api\Task;
 
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Request;
 
 class VkNotificationController extends Controller
 {
     public function send()
     {
-        $answer = $this->send_vk(713121208, "Test Message");
+        $answer = $this->send_vk(496279615, "Задача создана");
 
         return $answer;
     }
