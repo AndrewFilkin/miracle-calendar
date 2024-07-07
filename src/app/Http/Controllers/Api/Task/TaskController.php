@@ -54,7 +54,6 @@ class TaskController extends Controller
         return response()->json(['task' => $task, 'comments' => $comments]);
     }
 
-
     public function showTaskInCalendar()
     {
         $id = auth()->user()->id;
