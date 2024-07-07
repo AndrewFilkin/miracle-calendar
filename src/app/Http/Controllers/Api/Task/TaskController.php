@@ -7,12 +7,14 @@ use App\Http\Requests\Api\Task\FilterRequest;
 use App\Http\Requests\Api\Task\SearchQueryRequest;
 use App\Http\Requests\Api\Task\CreateTaskRequest;
 use App\Http\Resources\Api\Task\ShowUserResource;
+use App\Models\Task;
 use App\Models\User;
 use App\Services\Api\Task\CreateTaskService;
 use App\Http\Requests\Api\Task\UpdateTaskRequest;
 use App\Services\Api\Task\DeleteTaskService;
 use App\Services\Api\Task\UpdateTaskService;
 use App\Services\Api\Task\ShowTaskService;
+use App\Models\Comment;
 
 class TaskController extends Controller
 {
@@ -30,6 +32,28 @@ class TaskController extends Controller
         $showTaskService->showTask($data, $id);
         return $showTaskService->answer;
     }
+
+    public function showConcreteTask($taskId)
+    {
+
+        $id = auth()->user()->id;
+        $task = Task::find($taskId);
+
+        if (!$task) {
+            return response()->json(['message' => 'Task not found'], 404);
+        }
+
+        $userIdsWhoCanSeeThisTask = $task->users()->get()->pluck('id')->toArray();
+        if (!in_array($id, $userIdsWhoCanSeeThisTask)) {
+            return response()->json(['message' => 'You cannot open someone else task'], 403);
+        }
+
+        $comments = Comment::where('task_id', $taskId)
+            ->get();
+
+        return response()->json(['task' => $task, 'comments' => $comments]);
+    }
+
 
     public function showTaskInCalendar()
     {

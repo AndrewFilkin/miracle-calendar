@@ -40,6 +40,7 @@ Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(funct
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function () {
     Route::get('show', [TaskController::class, 'showTask'])->name('show.task');
+    Route::get('show-concrete-task/{taskId}', [TaskController::class, 'showConcreteTask'])->name('show.concrete.task');
     Route::get('show/calendar', [TaskController::class, 'showTaskInCalendar'])->name('show.task.in.calendar');
 
     Route::get('show-user', [TaskController::class, 'showUser'])->name('task.show.user');
