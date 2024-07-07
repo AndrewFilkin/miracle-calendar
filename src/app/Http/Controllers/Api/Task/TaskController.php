@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Task\FilterRequest;
 use App\Http\Requests\Api\Task\SearchQueryRequest;
 use App\Http\Requests\Api\Task\CreateTaskRequest;
 use App\Http\Resources\Api\Task\ShowUserResource;
+use App\Models\File;
 use App\Models\Task;
 use App\Models\User;
 use App\Services\Api\Task\CreateTaskService;
@@ -50,6 +51,14 @@ class TaskController extends Controller
 
         $comments = Comment::where('task_id', $taskId)
             ->get();
+
+        //get file from comments
+        $files = array();
+
+        foreach ($comments as $comment) {
+            $comment['file'] = File::where('comment_id', $comment->id)
+                ->value('file_name_in_storage');
+        }
 
         return response()->json(['task' => $task, 'comments' => $comments]);
     }
