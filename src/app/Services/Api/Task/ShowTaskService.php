@@ -6,6 +6,7 @@ namespace App\Services\Api\Task;
 
 use App\Models\User;
 use Carbon\Carbon;
+use function PHPUnit\Framework\isEmpty;
 
 class ShowTaskService
 {
@@ -13,6 +14,13 @@ class ShowTaskService
 
     public function showTask(array $data, $id)
     {
+
+        if (isEmpty($data)) {
+            $user = User::find($id);
+            $tasks = $user->tasks()->paginate(30);
+            return $this->answer = response()->json($tasks);
+        }
+
         $filterFirst = $data['filterFirst'];
 
         if (array_key_exists('filterSecond', $data)) {
