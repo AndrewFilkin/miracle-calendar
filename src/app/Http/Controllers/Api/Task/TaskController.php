@@ -52,11 +52,8 @@ class TaskController extends Controller
         $comments = Comment::where('task_id', $taskId)
             ->get();
 
-        //get file from comments
-        $files = array();
-
         foreach ($comments as $comment) {
-            $comment['file'] = File::where('comment_id', $comment->id)
+            $comment['file'] = "/storage/files/task/$taskId/" . File::where('comment_id', $comment->id)
                 ->value('file_name_in_storage');
         }
 
