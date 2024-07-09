@@ -14,4 +14,8 @@ Schedule::call(function () {
     $twoDaysAgo = Carbon::now()->subDays(2);
     RegisterLink::where('created_at', '<', $twoDaysAgo)
         ->delete();
-})->everyMinute();
+})->cron('0 0 */2 * *'); // every two days
+
+//Schedule::call(function () {
+//    send notification to vk
+//})->everyTenMinutes();
