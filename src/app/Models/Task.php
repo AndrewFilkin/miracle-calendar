@@ -18,6 +18,7 @@ class Task extends Model
         'is_completed',
         'is_urgently',
         'creator_id',
+        'is_sent_vk_notification',
     ];
 
     public function users()

@@ -19,7 +19,12 @@ class UpdateTaskService
         }
 
         if (auth()->user()->id == $task->creator_id || auth()->user()->role == 'admin') {
-            $data = $request->only(['name', 'description', 'start_date', 'end_date', 'is_urgently', 'is_completed',]);
+            $data = $request->only(['name', 'description', 'start_date', 'end_date', 'is_urgently', 'is_completed']);
+
+            if (array_key_exists('start_date', $data)) {
+                $task->is_sent_vk_notification = false;
+            }
+
             $result = $task->fill($data)->save();
 
             if ($result) {

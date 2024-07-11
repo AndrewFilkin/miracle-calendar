@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('is_completed')->default(false);
             $table->boolean('is_urgently')->default(false);
             $table->integer('creator_id');
+            $table->boolean('is_sent_vk_notification')->default(false);
             $table->timestamps();
         });
     }

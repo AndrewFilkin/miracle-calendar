@@ -1,18 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Api\Task;
+namespace App\Console\Commands;
 
-use App\Actions\SendVkNotification;
-use App\Http\Controllers\Controller;
 use App\Models\Task;
-use App\Models\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
-use App\Http\Requests\Api\Notification\StoreVkUserIdRequest;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 
-class VkNotificationController extends Controller
+class SendNotificationToVkCommand extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'send:notification-to-vk';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Send notification to vk';
+
 
     function sent_vk($vk_user_id, $text_source): void
     {
@@ -42,25 +53,7 @@ class VkNotificationController extends Controller
 
     }
 
-    public function storeVkUserId(StoreVkUserIdRequest $request)
-    {
-        $data = $request->validated();
-
-        $userId = auth()->user()->id;
-
-        if (!$userId) {
-            return response()->json(['message' => 'Access close'], 401);
-        }
-
-        $user = User::find($userId);
-        $user->vk_user_id = (int)$data['vk_user_id'];
-        $user->save();
-
-        return response()->json(['message' => 'Vk user id save']);
-
-    }
-
-    public function send(): void
+    public function handle()
     {
         $elevenMinutesAgo = Carbon::now();
 
@@ -75,8 +68,7 @@ class VkNotificationController extends Controller
 
             foreach ($users as $user) {
                 if ($user->vk_user_id) {
-                    echo '123';
-//                $this->sent_vk($user->vk_user_id, 'Test Send Message');
+                $this->sent_vk($user->vk_user_id, 'Test Send Message');
                 }
             }
         }
