@@ -13,35 +13,6 @@ use Illuminate\Support\Facades\Config;
 
 class VkNotificationController extends Controller
 {
-
-    function sent_vk($vk_user_id, $text_source): void
-    {
-        $url = "https://api.vk.com/method/messages.send";
-        $client = new Client();
-
-        $random_id = random_int(100000000, 999999999);
-
-        $response = $client->post($url, [
-            'form_params' => [
-                'user_id' => $vk_user_id, // needed for VK API
-                'random_id' => $random_id,
-                'v' => '5.199',
-                'access_token' => Config::get('app.vk_token'), // Поместите ваш токен в .env файл
-                'message' => $text_source
-            ],
-            'verify' => false
-        ]);
-
-//        $answer = (string)$response->getBody();
-//        if (strpos(" " . $answer, 'error')) {
-//            dd(env('VK_TOKEN'));
-//            return response()->json(['message' => 'Message not send'], 409);
-//        }
-//        echo 'Message send' . "\n";
-//        return response()->json(['message' => 'Message send']);
-
-    }
-
     public function storeVkUserId(StoreVkUserIdRequest $request)
     {
         $data = $request->validated();
@@ -57,28 +28,5 @@ class VkNotificationController extends Controller
         $user->save();
 
         return response()->json(['message' => 'Vk user id save']);
-
-    }
-
-    public function send(): void
-    {
-        $elevenMinutesAgo = Carbon::now();
-
-        $tasks = Task::where('start_date', '<=', $elevenMinutesAgo)
-            ->where('is_sent_vk_notification', '=', false)
-            ->get();
-
-        // Перебрать все задачи
-        foreach ($tasks as $task) {
-            // Получить всех пользователей, связанных с этой задачей
-            $users = $task->users;
-
-            foreach ($users as $user) {
-                if ($user->vk_user_id) {
-                    echo '123';
-//                $this->sent_vk($user->vk_user_id, 'Test Send Message');
-                }
-            }
-        }
     }
 }

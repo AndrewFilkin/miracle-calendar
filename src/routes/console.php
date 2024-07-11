@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
+use Illuminate\Support\Facades\Log;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -16,6 +17,4 @@ Schedule::call(function () {
         ->delete();
 })->cron('0 0 */2 * *'); // every two days
 
-//Schedule::call(function () {
-//    send notification to vk
-//})->everyTenMinutes();
+Schedule::command('send:notification-to-vk')->everyTenMinutes();

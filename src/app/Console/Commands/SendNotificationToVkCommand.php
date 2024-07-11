@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 
 class SendNotificationToVkCommand extends Command
 {
@@ -63,12 +64,18 @@ class SendNotificationToVkCommand extends Command
 
         // Перебрать все задачи
         foreach ($tasks as $task) {
+            $task->is_sent_vk_notification = true;
+            $task->save();
             // Получить всех пользователей, связанных с этой задачей
             $users = $task->users;
 
             foreach ($users as $user) {
                 if ($user->vk_user_id) {
-                $this->sent_vk($user->vk_user_id, 'Test Send Message');
+                    try {
+                        $this->sent_vk($user->vk_user_id, 'Test Send Message link task');
+                    } catch (\Exception $e) {
+                        Log::error($e->getMessage());
+                    }
                 }
             }
         }
