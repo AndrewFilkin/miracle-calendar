@@ -48,6 +48,8 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function
     Route::patch('update/{id}', [TaskController::class, 'update'])->name('task.update');
     Route::delete('delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
 
+    Route::get('search/all', [TaskController::class, 'searchAllTask'])->name('search.all.task');
+
     Route::get('send-notification-to-vk', [VkNotificationController::class, 'send'])->name('send.notification.to.vk');
 });
 

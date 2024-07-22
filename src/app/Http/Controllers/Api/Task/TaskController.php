@@ -122,4 +122,30 @@ class TaskController extends Controller
         $deleteTaskService->deleteTask($id);
         return $deleteTaskService->answer;
     }
+
+    public function searchAllTask(SearchQueryRequest $request) {
+
+        $messageNotFound = array(
+            "name" => array(
+                'Not found',
+            )
+        );
+
+        $query = $request->get('query', '');
+
+        $currentUserId = auth()->user()->id;
+        $tasks = User::find($currentUserId)
+            ->tasks()
+            ->where('name', 'ILIKE', "%{$query}%")
+            ->get();
+
+        if (!$tasks->isEmpty()) {
+            return response()->json($tasks);
+        } else {
+            return response()->json([$messageNotFound]);
+        }
+
+
+    }
+
 }
