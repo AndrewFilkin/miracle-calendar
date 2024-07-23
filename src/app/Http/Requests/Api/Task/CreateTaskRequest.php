@@ -24,8 +24,8 @@ class CreateTaskRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'string|max:255',
-            'start_date' => 'date_format:Y-m-d H:i',
-            'end_date' => 'nullable|date_format:Y-m-d H:i|after_or_equal:start_date',
+            'start_date' => 'required|date_format:Y-m-d H:i',
+            'end_date' => 'required|nullable|date_format:Y-m-d H:i|after_or_equal:start_date',
             'is_completed' => 'boolean',
             'is_urgently' => 'boolean',
             'participant.*' => 'numeric|exists:users,id',
