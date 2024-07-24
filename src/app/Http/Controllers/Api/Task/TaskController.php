@@ -133,18 +133,29 @@ class TaskController extends Controller
 
         $query = $request->get('query', '');
 
-        $currentUserId = auth()->user()->id;
-        $tasks = User::find($currentUserId)
-            ->tasks()
-            ->where('name', 'ILIKE', "%{$query}%")
-            ->get();
+        if (auth()->user()->role == "admin") {
+            $tasks = Task::where('name', 'ILIKE', "%{$query}%")
+                ->get();
+        } else {
+            $currentUserId = auth()->user()->id;
+            $tasks = User::find($currentUserId)
+                ->tasks()
+                ->where('name', 'ILIKE', "%{$query}%")
+                ->get();
+        }
 
         if (!$tasks->isEmpty()) {
             return response()->json($tasks);
         } else {
             return response()->json([$messageNotFound]);
         }
+    }
 
+    public function searchAllCompletedTask(SearchQueryRequest $request) {
+
+    }
+
+    public function searchAllNotCompletedTask(SearchQueryRequest $request) {
 
     }
 

@@ -49,6 +49,8 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('task')->group(function
     Route::delete('delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
 
     Route::get('search/all', [TaskController::class, 'searchAllTask'])->name('search.all.task');
+    Route::get('search/all-completed-task', [TaskController::class, 'searchAllCompletedTask'])->name('search.all.completed.task');
+    Route::get('search/all-not-completed-task', [TaskController::class, 'searchAllNotCompletedTask'])->name('search.all.not.completed.task');
 
     Route::get('send-notification-to-vk', [VkNotificationController::class, 'send'])->name('send.notification.to.vk');
 });
