@@ -28,6 +28,8 @@ class CreateTaskRequest extends FormRequest
             'end_date' => 'required|nullable|date_format:Y-m-d H:i|after_or_equal:start_date',
             'is_completed' => 'boolean',
             'is_urgently' => 'boolean',
+            'comment' => 'string|max:1000',
+            'files*' => 'file|max:50000',
             'participant.*' => 'numeric|exists:users,id',
         ];
     }
