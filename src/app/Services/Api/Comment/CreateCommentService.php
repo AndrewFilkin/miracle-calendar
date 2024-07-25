@@ -16,11 +16,16 @@ class CreateCommentService
         $creator = auth()->user()->id;
 
         try {
-            $comment = Comment::create([
-                'user_id' => $creator,
-                'task_id' => $request->task_id,
-                'comment' => $request->comment,
-            ]);
+
+            $comment = new Comment();
+            $comment->user_id = $creator;
+            $comment->task_id = $request->task_id;
+            if (!$request->comment) {
+                $comment->comment = ' ';
+            } else {
+                $comment->comment = $request->comment;
+            }
+            $comment->save();
 
             if ($request->hasFile('files')) {
                 foreach ($request->file('files') as $file) {

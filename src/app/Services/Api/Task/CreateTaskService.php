@@ -39,15 +39,21 @@ class CreateTaskService
             $task->users()->attach($participant);
         }
 
-        //create comment
-        try {
-            $comment = Comment::create([
-                'user_id' => $creator,
-                'task_id' => $task->id,
-                'comment' => $requestData['comment'],
-            ]);
+        $this->answer = response()->json(['message' => 'Task created'], 201);
 
-            if ($request->hasFile('files')) {
+        //create comment
+        $comment = new Comment();
+        try {
+            if (array_key_exists('comment', $requestData)) {
+
+                $comment->user_id = $creator;
+                $comment->task_id = $task->id;
+                $comment->comment = $requestData['comment'];
+                $comment->save();
+                $this->answer = response()->json(['message' => 'Task created'], 201);
+            }
+
+            if ($request->hasFile('files') and $comment->exists) {
                 foreach ($request->file('files') as $file) {
                     $fileOriginalName = $file->getClientOriginalName();
                     $fileNameInStorage = Str::random(32) . '.' . $file->getClientOriginalExtension();
@@ -61,13 +67,36 @@ class CreateTaskService
                     ]);
                     $comment->files()->save($file);
                 }
+                $this->answer = response()->json(['message' => 'Task created'], 201);
+            } elseif ($request->hasFile('files')) {
+
+                $comment = Comment::create([
+                    'user_id' => $creator,
+                    'task_id' => $task->id,
+                    'comment' => ' ',
+                ]);
+
+                foreach ($request->file('files') as $file) {
+                    $fileOriginalName = $file->getClientOriginalName();
+                    $fileNameInStorage = Str::random(32) . '.' . $file->getClientOriginalExtension();
+                    $file->storeAs("public/files/task/$task->id/" . 'comment_id_'. "$comment->id", $fileNameInStorage);
+
+                    //save data to db, table - files
+                    $file = new File([
+                        'user_id' => $creator,
+                        'file_name_in_storage' => $fileNameInStorage,
+                        'original_name' => $fileOriginalName,
+                    ]);
+                    $comment->files()->save($file);
+                }
+                $this->answer = response()->json(['message' => 'Task created'], 201);
             }
 
-            if ($comment && $task) {
-                $this->answer = response()->json(['message' => 'Task created'], 201);
-            } else {
-                $this->answer = response()->json(['message' => 'Error task created'], 500);
-            }
+//            if ($comment && $task) {
+//                $this->answer = response()->json(['message' => 'Task created'], 201);
+//            } else {
+//                $this->answer = response()->json(['message' => 'Error task created'], 500);
+//            }
         } catch (\Error $e) {
             $this->answer = response()->json(['message' => $e->getMessage()], 500);
         }
