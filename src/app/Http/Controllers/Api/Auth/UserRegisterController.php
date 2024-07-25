@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\RegisterRequest;
 use App\Http\Requests\Api\Auth\UpdateUserRequest;
+use App\Models\User;
 use App\Services\Api\Auth\RegisterUserService;
 use App\Http\Requests\Api\Auth\LoginRequest;
 
@@ -17,11 +18,13 @@ class UserRegisterController extends Controller
         return $registerUser->answer;
     }
 
-    public function login(LoginRequest $request): \Illuminate\Http\JsonResponse
+    public function login(LoginRequest $request)
     {
         $credentials = request(['email', 'password']);
 
-        if (!$token = auth()->attempt($credentials)) {
+        $user = User::where('email', $credentials['email'])->first();
+
+        if (!$token = auth()->attempt($credentials) or $user->is_approved == false) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
