@@ -52,7 +52,7 @@ class TaskController extends Controller
             ->get();
 
         foreach ($comments as $comment) {
-            $comment['file'] = "/storage/files/task/$taskId/" . File::where('comment_id', $comment->id)
+            $comment['file'] = "/storage/files/task/$taskId/" . "comment_id_$comment->id/" . File::where('comment_id', $comment->id)
                 ->value('file_name_in_storage');
         }
 
