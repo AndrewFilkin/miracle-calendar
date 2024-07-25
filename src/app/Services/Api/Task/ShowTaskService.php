@@ -15,7 +15,7 @@ class ShowTaskService
     public function showTask(array $data, $id)
     {
 
-        if (isEmpty($data)) {
+        if (empty($data)) {
             $user = User::find($id);
             $tasks = $user->tasks()->paginate(30);
             return $this->answer = response()->json($tasks);

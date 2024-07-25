@@ -51,7 +51,7 @@ class CreateTaskService
                 foreach ($request->file('files') as $file) {
                     $fileOriginalName = $file->getClientOriginalName();
                     $fileNameInStorage = Str::random(32) . '.' . $file->getClientOriginalExtension();
-                    $file->storeAs("public/files/task/$request->task_id/", $fileNameInStorage);
+                    $file->storeAs("public/files/task/$task->id/" . 'comment_id_'. "$comment->id", $fileNameInStorage);
 
                     //save data to db, table - files
                     $file = new File([

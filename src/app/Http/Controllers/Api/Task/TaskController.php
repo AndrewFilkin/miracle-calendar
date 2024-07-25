@@ -36,7 +36,6 @@ class TaskController extends Controller
 
     public function showConcreteTask($taskId)
     {
-
         $id = auth()->user()->id;
         $task = Task::find($taskId);
 
