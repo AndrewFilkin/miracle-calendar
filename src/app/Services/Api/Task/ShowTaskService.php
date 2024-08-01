@@ -271,17 +271,54 @@ class ShowTaskService
                         return $this->answer = response()->json($tasks);
                 }
             case 'newest':
-                $user = User::find($id);
-                $tasks = $user->tasks()
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(30);
-                return $this->answer = response()->json($tasks);
+                switch ($filterSecond) {
+                    case 'asc':
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->orderBy('created_at', 'asc')
+                            ->orderBy('name', 'desc')
+                            ->paginate(30);
+                        return $this->answer = response()->json($tasks);
+
+                    case 'desc':
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->orderBy('created_at', 'desc')
+                            ->orderBy('name', 'desc')
+                            ->paginate(30);
+                        return $this->answer = response()->json($tasks);
+
+                    default:
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->orderBy('created_at', 'desc')
+                            ->paginate(30);
+                        return $this->answer = response()->json($tasks);
+                }
             case 'oldest':
-                $user = User::find($id);
-                $tasks = $user->tasks()
-                    ->orderBy('created_at', 'asc')
-                    ->paginate(30);
-                return $this->answer = response()->json($tasks);
+                switch ($filterSecond) {
+                    case 'asc':
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->orderBy('created_at', 'asc')
+                            ->orderBy('name', 'asc')
+                            ->paginate(30);
+                        return $this->answer = response()->json($tasks);
+
+                    case 'desc':
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->orderBy('created_at', 'asc')
+                            ->orderBy('name', 'desc')
+                            ->paginate(30);
+                        return $this->answer = response()->json($tasks);
+                    default:
+                        $user = User::find($id);
+                        $tasks = $user->tasks()
+                            ->orderBy('created_at', 'asc')
+                            ->paginate(30);
+                        return $this->answer = response()->json($tasks);
+                }
             default:
                 $user = User::find($id);
                 $tasks = $user->tasks()->paginate(30);
