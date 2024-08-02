@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreign('comment_id')->references('id')->on('comments');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
-
         });
     }
 
