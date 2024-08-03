@@ -44,7 +44,7 @@ class TaskController extends Controller
         }
 
         $userIdsWhoCanSeeThisTask = $task->users()->get()->pluck('id')->toArray();
-        if (!in_array($id, $userIdsWhoCanSeeThisTask)) {
+        if (!in_array($id, $userIdsWhoCanSeeThisTask) && auth()->user()->role != 'admin') {
             return response()->json(['message' => 'You cannot open someone else task'], 403);
         }
 
