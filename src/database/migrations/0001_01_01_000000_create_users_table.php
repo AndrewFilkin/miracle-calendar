@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('role')->nullable();
             $table->boolean('is_approved')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
