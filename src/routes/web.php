@@ -9,6 +9,10 @@ Route::get('/', function () {
     phpinfo();
 });
 
+Route::get('show-concrete-task', function () {
+    return view('show-concrete-task');
+});
+
 Route::get('search', function () {
     return view('search-user');
 });

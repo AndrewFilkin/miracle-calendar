@@ -6,6 +6,7 @@ use App\Http\Requests\Api\Comment\CreateCommentRequest;
 use App\Models\Comment;
 use App\Models\File;
 use Illuminate\Support\Str;
+use Pusher\Pusher;
 
 class CreateCommentService
 {
@@ -51,5 +52,14 @@ class CreateCommentService
         } catch (\Error $e) {
             $this->answer = response()->json(['message' => $e->getMessage()], 500);
         }
+
+        $pusher = new Pusher(
+            config('pusher.app_key'),
+            config('pusher.app_secret'),
+            config('pusher.app_id'),
+            config('pusher.options')
+        );
+
+        $pusher->trigger("comment-channel-$request->task_id", 'comment-event', $comment);
     }
 }
