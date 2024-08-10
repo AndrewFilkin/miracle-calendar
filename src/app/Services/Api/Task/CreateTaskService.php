@@ -41,6 +41,10 @@ class CreateTaskService
 
         $this->answer = response()->json(['message' => 'Task created'], 201);
 
+
+        //create Checklist
+
+
         //create comment
         $comment = new Comment();
         try {
@@ -92,11 +96,6 @@ class CreateTaskService
                 $this->answer = response()->json(['message' => 'Task created'], 201);
             }
 
-//            if ($comment && $task) {
-//                $this->answer = response()->json(['message' => 'Task created'], 201);
-//            } else {
-//                $this->answer = response()->json(['message' => 'Error task created'], 500);
-//            }
         } catch (\Error $e) {
             $this->answer = response()->json(['message' => $e->getMessage()], 500);
         }

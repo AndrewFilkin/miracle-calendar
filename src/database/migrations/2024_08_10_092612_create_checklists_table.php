@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('task_id');
 
             $table->text('text');
+            $table->boolean('is_selected')->default(0);
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('task_id')->references('id')->on('tasks');

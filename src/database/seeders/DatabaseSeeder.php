@@ -5,8 +5,6 @@ namespace Database\Seeders;
 use App\Models\Checklist;
 use App\Models\Comment;
 use App\Models\File;
-use App\Models\Project;
-use App\Models\ProjectUser;
 use App\Models\Task;
 use App\Models\TaskUser;
 use App\Models\User;

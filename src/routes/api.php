@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Admin\GenerateRegisterLinkController;
 use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\Admin\UserSearchController;
 use App\Http\Controllers\Api\Task\VkNotificationController;
+use App\Http\Controllers\Api\Checklist\ChecklistController;
 
 /*
  * Register user without jwt token
@@ -59,4 +60,10 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('comment')->group(funct
     Route::post('create', [CommentController::class, 'create'])->name('comment.create');
     Route::patch('update/{id}', [CommentController::class, 'update'])->name('comment.update');
     Route::delete('delete/{id}', [CommentController::class, 'delete'])->name('comment.delete');
+});
+
+Route::middleware([IsApprovedMiddleware::class])->prefix('checklist')->group(function () {
+    Route::post('create', [ChecklistController::class, 'create'])->name('checklist.create');
+    Route::patch('update/{id}', [ChecklistController::class, 'update'])->name('checklist.update');
+    Route::delete('delete/{id}', [ChecklistController::class, 'delete'])->name('checklist.delete');
 });

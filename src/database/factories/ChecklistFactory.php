@@ -22,6 +22,7 @@ class ChecklistFactory extends Factory
     {
         return [
             'text' => fake()->text(300),
+            'is_selected' => fake()->boolean(),
             'user_id' => fake()->numberBetween(1, 200),
             'task_id' => fake()->numberBetween(1, 400),
         ];

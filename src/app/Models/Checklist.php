@@ -13,6 +13,7 @@ class Checklist extends Model
 
     protected $fillable = [
         'text',
+        'is_selected',
         'user_id',
         'task_id',
     ];
