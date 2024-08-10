@@ -62,6 +62,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Comment::class);
     }
 
+    public function checklist()
+    {
+        return $this->hasMany(Checklist::class);
+    }
+
     public function files()
     {
         return $this->hasMany(File::class);

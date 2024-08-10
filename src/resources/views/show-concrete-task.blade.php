@@ -15,7 +15,7 @@
             cluster: 'eu'
         });
 
-        var channel = pusher.subscribe('comment-channel-402');
+        var channel = pusher.subscribe('comment-channel-5');
         channel.bind('comment-event', function(data) {
             alert(JSON.stringify(data));
         });
@@ -29,10 +29,10 @@
 <div id="comments"></div>
 
 <script>
-    fetch('http://localhost:8000/api/task/show-concrete-task/402', {
+    fetch('http://localhost:8000/api/task/show-concrete-task/5', {
         method: 'GET',
         headers: {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzIyNjgzMDM0LCJleHAiOjE3MjMyODc4MzQsIm5iZiI6MTcyMjY4MzAzNCwianRpIjoieURiOWQxNHlYZTVXT2RHbCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.30N0Sgvp9AchT7YItUQzVGvXXdKoDm5bEPlDMlYT8vU',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzIzMTAxMTMxLCJleHAiOjE3MjM3MDU5MzEsIm5iZiI6MTcyMzEwMTEzMSwianRpIjoibHJXSzhGYU9jWFlzbjZvYSIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.1MJ3Seoln3iA21N91WWY2Nn7mpQUqR0GzNpmbnd60J0',
             'Content-Type': 'application/json'
         }
     })

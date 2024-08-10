@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Checklist;
 use App\Models\Comment;
 use App\Models\File;
 use App\Models\Project;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
         Task::factory(400)->create();
         TaskUser::factory(400)->create();
         Comment::factory(1000)->create();
+        Checklist::factory(1000)->create();
         File::factory(2000)->create();
     }
 }
