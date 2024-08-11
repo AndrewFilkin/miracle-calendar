@@ -7,6 +7,7 @@ use App\Http\Requests\Api\Task\FilterRequest;
 use App\Http\Requests\Api\Task\SearchQueryRequest;
 use App\Http\Requests\Api\Task\CreateTaskRequest;
 use App\Http\Resources\Api\Task\ShowUserResource;
+use App\Models\Checklist;
 use App\Models\File;
 use App\Models\Task;
 use App\Models\User;
@@ -48,6 +49,9 @@ class TaskController extends Controller
             return response()->json(['message' => 'You cannot open someone else task'], 403);
         }
 
+        $checklist = Checklist::where('task_id', $taskId)
+            ->get();
+
         $comments = Comment::where('task_id', $taskId)
             ->get();
 
@@ -56,7 +60,7 @@ class TaskController extends Controller
                 ->value('file_name_in_storage');
         }
 
-        return response()->json(['task' => $task, 'comments' => $comments]);
+        return response()->json(['task' => $task, 'checklist' => $checklist, 'comments' => $comments]);
     }
 
     public function showTaskInCalendar()
