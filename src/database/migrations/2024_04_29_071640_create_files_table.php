@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('file_name_in_storage');
             $table->string('original_name');
 
-            $table->foreign('comment_id')->references('id')->on('comments');
+            $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');;
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

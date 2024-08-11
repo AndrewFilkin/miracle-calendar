@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('is_selected')->default(0);
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
 
             $table->timestamps();
         });

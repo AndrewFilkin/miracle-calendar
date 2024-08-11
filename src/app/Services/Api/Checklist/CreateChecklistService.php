@@ -14,7 +14,6 @@ class CreateChecklistService
 
     public function createChecklist(array $data)
     {
-
         $creator = auth()->user()->id;
 
         $task = Task::find($data['task_id']);
@@ -23,9 +22,9 @@ class CreateChecklistService
         if ($task->creator_id == $creator || auth()->user()->role == 'admin') {
 
             foreach ($data['text'] as $index => $text) {
+
                 $isSelected = $data['is_selected'][$index];
 
-                // Сохраняем данные в базу
                 Checklist::create([
                     'user_id' => $creator,
                     'task_id' => $data['task_id'],

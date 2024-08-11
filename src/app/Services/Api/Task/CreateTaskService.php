@@ -19,16 +19,31 @@ class CreateTaskService
     {
         $creator = auth()->user()->id;
 
-        $requestData = $request->only(['name', 'description', 'start_date', 'end_date', 'is_urgently', 'participant', 'comment']);
+        $requestData = $request->only(['name', 'description', 'start_date', 'end_date', 'is_urgently', 'participant', 'comment', 'text', 'is_selected']);
 
-        $task = Task::create([
-            'name' => $requestData['name'],
-            'description' => $requestData['description'],
-            'start_date' => $requestData['start_date'],
-            'end_date' => $requestData['end_date'],
-            'is_urgently' => $requestData['is_urgently'],
-            'creator_id' => $creator,
-        ]);
+
+        $task = new Task();
+        $task->name = $requestData['name'];
+        $task->description = $requestData['description'];
+        $task->start_date = $requestData['start_date'];
+        $task->end_date = $requestData['end_date'];
+        $task->is_urgently = $requestData['is_urgently'];
+        $task->creator_id = $creator;
+
+        $task->save();
+
+        //create Checklist
+        foreach ($requestData['text'] as $index => $text) {
+
+            $isSelected = $requestData['is_selected'][$index];
+
+            $task->checklists()->create([
+                'user_id' => $creator,
+                'task_id' => $task->id,
+                'text' => $text,
+                'is_selected' => $isSelected
+            ]);
+        }
 
         if (!isset($requestData['participant'])) {
             $requestData['participant'] = (string)$creator;
@@ -40,10 +55,6 @@ class CreateTaskService
         }
 
         $this->answer = response()->json(['message' => 'Task created'], 201);
-
-
-        //create Checklist
-
 
         //create comment
         $comment = new Comment();

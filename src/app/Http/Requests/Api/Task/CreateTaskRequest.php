@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Task;
 
+use App\Rules\MatchArrayLengths;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateTaskRequest extends FormRequest
@@ -31,6 +32,11 @@ class CreateTaskRequest extends FormRequest
             'comment' => 'string|max:1000',
             'files*' => 'file|max:50000',
             'participant.*' => 'numeric|exists:users,id',
+            //create Checklist
+            'text' => 'required|array',
+            'text.*' => 'required|string|min:3|max:500',
+            'is_selected' => ['required', 'array', new MatchArrayLengths],
+            'is_selected.*' => 'required|boolean',
         ];
     }
 }
