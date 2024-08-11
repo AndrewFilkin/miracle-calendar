@@ -33,16 +33,20 @@ class CreateTaskService
         $task->save();
 
         //create Checklist
-        foreach ($requestData['text'] as $index => $text) {
 
-            $isSelected = $requestData['is_selected'][$index];
+        if (isset($requestData['text']) && isset($requestData['is_selected'])) {
 
-            $task->checklists()->create([
-                'user_id' => $creator,
-                'task_id' => $task->id,
-                'text' => $text,
-                'is_selected' => $isSelected
-            ]);
+            foreach ($requestData['text'] as $index => $text) {
+
+                $isSelected = $requestData['is_selected'][$index];
+
+                $task->checklists()->create([
+                    'user_id' => $creator,
+                    'task_id' => $task->id,
+                    'text' => $text,
+                    'is_selected' => $isSelected
+                ]);
+            }
         }
 
         if (!isset($requestData['participant'])) {

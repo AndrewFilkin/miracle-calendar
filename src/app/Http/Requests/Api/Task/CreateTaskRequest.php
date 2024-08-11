@@ -33,10 +33,10 @@ class CreateTaskRequest extends FormRequest
             'files*' => 'file|max:50000',
             'participant.*' => 'numeric|exists:users,id',
             //create Checklist
-            'text' => 'required|array',
-            'text.*' => 'required|string|min:3|max:500',
-            'is_selected' => ['required', 'array', new MatchArrayLengths],
-            'is_selected.*' => 'required|boolean',
+            'text' => 'array',
+            'text.*' => 'string|min:3|max:500',
+            'is_selected' => ['array', new MatchArrayLengths],
+            'is_selected.*' => 'boolean',
         ];
     }
 }
