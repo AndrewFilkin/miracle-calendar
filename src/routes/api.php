@@ -27,7 +27,7 @@ Route::patch('store-vk-user-id', [VkNotificationController::class, 'storeVkUserI
 Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(function () {
     Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister'])->name('admin.auth.approved');
     Route::delete('delete/user/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
-    Route::post('update/user/{id}', [UserController::class, 'update'])->name('admin.user.update');
+    Route::patch('update/user/{id}', [UserController::class, 'update'])->name('admin.user.update');
     Route::get('search/approved/user', [UserSearchController::class, 'searchApprovedUsers'])->name('admin.search.approved.users');
     Route::get('search/not-approved/user', [UserSearchController::class, 'searchNotApprovedUsers'])->name('admin.search.not.approved.users');
 

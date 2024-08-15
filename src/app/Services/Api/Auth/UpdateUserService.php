@@ -32,7 +32,6 @@ class UpdateUserService
 
         try {
             $result = $user->fill($data);
-//            dd($result);
 
             DB::beginTransaction();
 
