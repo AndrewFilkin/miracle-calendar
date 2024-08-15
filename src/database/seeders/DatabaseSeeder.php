@@ -23,6 +23,13 @@ class DatabaseSeeder extends Seeder
             'is_approved' => true,
         ]);
 
+        User::factory()->create([
+            'name' => 'Юзер Для Теста',
+            'email' => 'mcdermott.marielle@example.net',
+            'password' => Hash::make('11111111'),
+            'is_approved' => true,
+        ]);
+
         User::factory(200)->create();
         Task::factory(400)->create();
         TaskUser::factory(400)->create();
