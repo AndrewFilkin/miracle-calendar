@@ -29,4 +29,19 @@ class VkNotificationController extends Controller
 
         return response()->json(['message' => 'Vk user id save']);
     }
+
+    public function deleteVkUserId()
+    {
+        $userId = auth()->user()->id;
+
+        if (!$userId) {
+            return response()->json(['message' => 'Access close'], 401);
+        }
+
+        $user = User::find($userId);
+        $user->vk_user_id = null;
+        $user->save();
+
+        return response()->json(['message' => 'Vk user id delete']);
+    }
 }

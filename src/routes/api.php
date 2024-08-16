@@ -23,6 +23,7 @@ Route::post('login', [UserRegisterController::class, 'login'])->name('auth.login
 Route::post('logout', [UserRegisterController::class, 'logout'])->name('auth.logout');
 
 Route::patch('store-vk-user-id', [VkNotificationController::class, 'storeVkUserId'])->middleware([IsApprovedMiddleware::class])->name('store.vk.user.id');
+Route::patch('delete-vk-user-id', [VkNotificationController::class, 'deleteVkUserId'])->middleware([IsApprovedMiddleware::class])->name('delete.vk.user.id');
 
 Route::middleware([AdminIsValidMiddleware::class])->prefix('admin')->group(function () {
     Route::patch('approved', [ApprovedUserRegisterController::class, 'approvedUserRegister'])->name('admin.auth.approved');
