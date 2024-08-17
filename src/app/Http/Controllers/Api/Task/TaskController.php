@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Services\Api\Task\CreateTaskService;
 use App\Http\Requests\Api\Task\UpdateTaskRequest;
 use App\Services\Api\Task\DeleteTaskService;
+use App\Services\Api\Task\ShowAllTaskToAdminService;
 use App\Services\Api\Task\UpdateTaskService;
 use App\Services\Api\Task\ShowTaskService;
 use App\Models\Comment;
@@ -26,13 +27,20 @@ class TaskController extends Controller
     из таблицы task_user
     */
 
-    public function showTask(FilterRequest $request, ShowTaskService $showTaskService)
+    public function showTask(FilterRequest $request, ShowTaskService $showTaskService, ShowAllTaskToAdminService $showAllTaskToAdminService)
     {
         $data = $request->validated();
         $id = auth()->user()->id;
 
-        $showTaskService->showTask($data, $id);
-        return $showTaskService->answer;
+        if (auth()->user()->role == "admin") {
+            $showAllTaskToAdminService->showTask($data, $id);
+            return $showAllTaskToAdminService->answer;
+        } else {
+            $showTaskService->showTask($data, $id);
+            return $showTaskService->answer;
+        }
+
+
     }
 
     public function showConcreteTask($taskId)
