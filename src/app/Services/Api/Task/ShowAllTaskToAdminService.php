@@ -254,8 +254,7 @@ class ShowAllTaskToAdminService
                         return $this->answer = response()->json($tasks);
                 }
             default:
-                $user = User::find($id);
-                $tasks = $user->tasks()->paginate(30);
+                $tasks = Task::paginate(30);
                 return $this->answer = response()->json($tasks);
         }
     }
