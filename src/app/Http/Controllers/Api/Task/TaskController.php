@@ -76,7 +76,7 @@ class TaskController extends Controller
         $id = auth()->user()->id;
 
         $user = User::find($id);
-        $tasks = $user->tasks()->orderBy('start_date')->get();
+        $tasks = $user->tasks()->orderBy('start_date')->get()->makeHidden('pivot');
         return response()->json($tasks);
     }
 
