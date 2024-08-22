@@ -68,7 +68,10 @@ class TaskController extends Controller
                 ->value('file_name_in_storage');
         }
 
-        return response()->json(['task' => $task, 'checklist' => $checklist, 'comments' => $comments]);
+        $participants = $task->users()->get()->pluck('name', 'id')->toArray();
+        $creatorName = User::find($task->creator_id);
+
+        return response()->json(['task' => $task, 'creator_name' => $creatorName->name, 'participants' => $participants, 'checklist' => $checklist, 'comments' => $comments]);
     }
 
     public function showTaskInCalendar()
