@@ -86,6 +86,7 @@ class TaskController extends Controller
 
         $users = User::where('is_approved', true)
             ->where('id', '!=', $id)
+            ->orderBy('name', 'asc')
             ->get();
 
         return ShowUserResource::collection($users)->resolve();
@@ -105,7 +106,9 @@ class TaskController extends Controller
 
         $results = User::where('name', 'ILIKE', "%{$query}%")
             ->where('is_approved', '=', true)
-            ->where('id', '!=', $currentUserId)->get();
+            ->where('id', '!=', $currentUserId)
+            ->orderBy('name', 'asc')
+            ->get();
 
         if (!$results->isEmpty()) {
             return response()->json($results);
