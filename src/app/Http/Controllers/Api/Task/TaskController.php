@@ -45,6 +45,8 @@ class TaskController extends Controller
 
     public function showConcreteTask($taskId)
     {
+        $perPage = 30;
+
         $id = auth()->user()->id;
         $task = Task::find($taskId);
 
@@ -65,13 +67,19 @@ class TaskController extends Controller
 
         foreach ($comments as $comment) {
             $comment['file'] = "/storage/files/task/$taskId/" . "comment_id_$comment->id/" . File::where('comment_id', $comment->id)
-                ->value('file_name_in_storage');
+                    ->value('file_name_in_storage');
         }
 
         $participants = $task->users()->get()->pluck('name', 'id')->toArray();
         $creatorName = User::find($task->creator_id);
 
-        return response()->json(['task' => $task, 'creator_name' => $creatorName->name, 'participants' => $participants, 'checklist' => $checklist, 'comments' => $comments]);
+        return response()->json([
+            'task' => $task,
+            'creator_name' => $creatorName->name,
+            'participants' => $participants,
+            'checklist' => $checklist,
+            'comments' => $comments
+        ]);
     }
 
     public function showTaskInCalendar()
@@ -141,7 +149,8 @@ class TaskController extends Controller
         return $deleteTaskService->answer;
     }
 
-    public function searchAllTask(SearchQueryRequest $request) {
+    public function searchAllTask(SearchQueryRequest $request)
+    {
 
         $messageNotFound = array(
             "name" => array(
@@ -169,11 +178,13 @@ class TaskController extends Controller
         }
     }
 
-    public function searchAllCompletedTask(SearchQueryRequest $request) {
+    public function searchAllCompletedTask(SearchQueryRequest $request)
+    {
 
     }
 
-    public function searchAllNotCompletedTask(SearchQueryRequest $request) {
+    public function searchAllNotCompletedTask(SearchQueryRequest $request)
+    {
 
     }
 
