@@ -65,6 +65,6 @@ Route::middleware([IsApprovedMiddleware::class])->prefix('comment')->group(funct
 
 Route::middleware([IsApprovedMiddleware::class])->prefix('checklist')->group(function () {
     Route::post('create', [ChecklistController::class, 'create'])->name('checklist.create');
-    Route::patch('update/{id}', [ChecklistController::class, 'update'])->name('checklist.update');
+    Route::patch('update', [ChecklistController::class, 'update'])->name('checklist.update');
     Route::delete('delete/{id}', [ChecklistController::class, 'delete'])->name('checklist.delete');
 });

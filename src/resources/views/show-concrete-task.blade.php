@@ -32,7 +32,7 @@
     fetch('http://localhost:8000/api/task/show-concrete-task/5', {
         method: 'GET',
         headers: {
-            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzIzMTAxMTMxLCJleHAiOjE3MjM3MDU5MzEsIm5iZiI6MTcyMzEwMTEzMSwianRpIjoibHJXSzhGYU9jWFlzbjZvYSIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.1MJ3Seoln3iA21N91WWY2Nn7mpQUqR0GzNpmbnd60J0',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzI0NTY0NzI3LCJleHAiOjE3MjUxNjk1MjcsIm5iZiI6MTcyNDU2NDcyNywianRpIjoiVVlHa3hyZjhRRnRCZDRVTCIsInN1YiI6IjIiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.YayqpwTI5zy8GSneefzODdEOfPABPueEQVJamE4mr3Y',
             'Content-Type': 'application/json'
         }
     })
