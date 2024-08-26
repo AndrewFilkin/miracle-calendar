@@ -31,12 +31,11 @@ class ChecklistController extends Controller
 
             $checklist = $task->checklists()->where('id', $data['checklist_id'])->first();
 
-            if (isNull($checklist)) {
+            if ($checklist == null) {
                 return response()->json(['message' =>'checklist not found'], 404);
             }
 
             if ($checklist) {
-
                 $checklist->is_selected = $data['is_selected'];
 
                 if (array_key_exists('text', $data)) {
