@@ -23,7 +23,7 @@ class FileFactory extends Factory
             'comment_id' => fake()->numberBetween(1, 1000),
             'user_id' => fake()->numberBetween(1, 200),
             'file_name_in_storage' => fake()->filePath(),
-            'original_name' => fake()->filePath(),
+            'original_name' => fake()->text(10) . fake()->fileExtension(),
         ];
     }
 }

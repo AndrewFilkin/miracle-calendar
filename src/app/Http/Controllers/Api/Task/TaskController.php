@@ -45,7 +45,6 @@ class TaskController extends Controller
 
     public function showConcreteTask($taskId)
     {
-        $perPage = 30;
 
         $id = auth()->user()->id;
         $task = Task::find($taskId);
@@ -68,6 +67,7 @@ class TaskController extends Controller
         foreach ($comments as $comment) {
             $comment['file'] = "/storage/files/task/$taskId/" . "comment_id_$comment->id/" . File::where('comment_id', $comment->id)
                     ->value('file_name_in_storage');
+            $comment['file_name'] = File::where('comment_id', $comment->id)->value('original_name');
         }
 
         $participants = $task->users()->get()->pluck('name', 'id')->toArray();
