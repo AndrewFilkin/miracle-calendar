@@ -2,6 +2,7 @@
 
 namespace App\Services\Api\Auth;
 
+use App\Http\Resources\Api\Task\ShowUserResource;
 use App\Models\User;
 use App\Http\Requests\Api\Auth\RegisterRequest;
 use Carbon\Carbon;
@@ -44,7 +45,8 @@ class RegisterUserService
 
         if ($user->wasRecentlyCreated) {
             DB::commit();
-            $this->answer = response()->json(['message' => 'register success'], 201);
+            $this->answer = new ShowUserResource($user);
+//            $this->answer = response()->json(['message' => 'register success'], 201);
         } else {
             DB::rollBack();
             $this->answer = response()->json(['message' => 'something wrong'], 409);
