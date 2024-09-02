@@ -22,6 +22,9 @@ use App\Models\Comment;
 class TaskController extends Controller
 {
 
+
+    private $taskIdForFilePatch;
+    private $commentIdForFilePatch;
     /*
     посмотреть все задачи которые сам создал и ему создали
     из таблицы task_user
@@ -49,6 +52,10 @@ class TaskController extends Controller
         $id = auth()->user()->id;
         $task = Task::find($taskId);
 
+        $this->taskIdForFilePatch = $task->id;
+
+
+
         if (!$task) {
             return response()->json(['message' => 'Task not found'], 404);
         }
@@ -62,13 +69,25 @@ class TaskController extends Controller
             ->get();
 
         $comments = Comment::where('task_id', $taskId)
-            ->get();
+            ->with('files')->get();
 
-        foreach ($comments as $comment) {
-            $comment['file'] = "/storage/files/task/$taskId/" . "comment_id_$comment->id/" . File::where('comment_id', $comment->id)
-                    ->value('file_name_in_storage');
-            $comment['file_name'] = File::where('comment_id', $comment->id)->value('original_name');
-        }
+        $comments->each(function ($comment) {
+            $this->commentIdForFilePatch = $comment->id;
+            $comment->files->each(function ($file) {
+
+                $file->file_patch = "/storage/files/task/$this->taskIdForFilePatch/" . "comment_id_$this->commentIdForFilePatch/" . File::where('comment_id', $this->commentIdForFilePatch)
+                        ->value('file_name_in_storage') . $file->filename;
+            });
+        });
+
+
+
+//        foreach ($comments as $comment) {
+//
+//            $comment['file'] = "/storage/files/task/$taskId/" . "comment_id_$comment->id/" . File::where('comment_id', $comment->id)
+//                    ->value('file_name_in_storage');
+//            $comment['file_name'] = File::where('comment_id', $comment->id)->value('original_name');
+//        }
 
         $participants = $task->users()->get()->pluck('name', 'id')->toArray();
         $creatorName = User::find($task->creator_id);
