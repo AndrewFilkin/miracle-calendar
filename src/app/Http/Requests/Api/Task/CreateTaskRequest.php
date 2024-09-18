@@ -23,14 +23,14 @@ class CreateTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:100',
             'description' => 'required|string|max:500',
             'start_date' => 'required|date_format:Y-m-d H:i',
             'end_date' => 'required|nullable|date_format:Y-m-d H:i|after_or_equal:start_date',
             'is_completed' => 'boolean',
             'is_urgently' => 'boolean',
             'comment' => 'string|max:1000',
-            'files*' => 'file|max:50000',
+            'files*' => 'file|max:50000|mimes:jpg,png,pdf,docx,scv,txt,doc,xls,ppt,rtf,tiff,mp4,mp3,mkv,avi,mov,xml',
             'participant.*' => 'numeric|exists:users,id',
             //create Checklist
             'text' => 'array',
