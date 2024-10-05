@@ -54,8 +54,6 @@ class TaskController extends Controller
 
         $this->taskIdForFilePatch = $task->id;
 
-
-
         if (!$task) {
             return response()->json(['message' => 'Task not found'], 404);
         }
